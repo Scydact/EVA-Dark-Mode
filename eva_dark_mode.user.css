@@ -1,0 +1,2295 @@
+/* ==UserStyle==
+@name           UNAPEC EVA Dark Mode
+@namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
+@homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
+@updateURL      https://github.com/ScyllarusDactyl/EVA-Dark-Mode/raw/master/eva_dark_mode.user.css
+@version        2.0.1
+@license        LGPL-3.0-or-later
+@description    Modo oscuro para eva.unapec.edu.do
+@author         ScyllarusDactyl
+@preprocessor   less
+
+@var select theme_mode 'Color-scheme' {
+    'Dark  *': 'dark',
+    'Light  ': 'light',
+    'Custom ': 'custom'
+}
+
+@var color link_color 'Color: Link' #1976d2
+@var color tone_color 'Color: Base tone' rgb(186,216,255)
+@var range back_intensity 'Color: Background base' [15, 0, 90, 1, '%']
+@var range back_increment 'Color: Background increment' [5, 0, 25, 1, '%']
+
+==/UserStyle== */
+
+@-moz-document url-prefix("https://eva.unapec.edu.do/moodle/") {
+
+    /* VARIABLES AND DEFAULTS */
+    @font-face {
+        font-family: "Roboto";
+        src        : url("https://cdn.jsdelivr.net/gh/google/roboto@master/src/hinted/Roboto-Regular.ttf");
+    }
+
+    @font-face {
+        font-family: "Roboto Condensed";
+        src        : url("https://cdn.jsdelivr.net/gh/google/roboto@master/src/hinted/RobotoCondensed-Regular.ttf");
+    }
+
+    @font-face {
+        font-family: "Noto Sans";
+        src        : url("https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts@master/unhinted/NotoSans/NotoSans-Regular.ttf");
+    }
+
+    /* PALLETE */
+    .theme-mixin(dark) {
+        @backIntensity: 15%;
+        @backIncrement: 5%;
+        @toneColor    : rgb(186, 216, 255);
+        @theme        : dark;
+    }
+
+    .theme-mixin(light) {
+        @backIntensity: 84%;
+        @backIncrement: 4%;
+        @toneColor    : rgb(255, 255, 255);
+        @theme        : light;
+    }
+
+    .theme-mixin(custom) {
+        @backIntensity: @back_intensity;
+        @backIncrement: @back_increment;
+        @toneColor    : @tone_color;
+        @theme        : if((@backIntensity + @backIncrement > 50), light, dark);
+        // TODO: Themes depending on contrast
+    }
+
+    .theme-mixin(@theme_mode);
+
+    @backColor: hsl(hue(@toneColor), 100%, lightness(@toneColor));
+
+    /*
+    @back1: rgb(28, 32, 38);
+    @back2: rgb(37, 43, 51);
+    @back3: rgb(47, 54, 64);
+    @back4: rgb(56, 65, 77);
+    @back5: rgb(65, 76, 89);
+    */
+
+    @back1: multiply(hsv(0, 0, @backIntensity), @backColor);
+    @back2: multiply(hsv(0, 0, @backIntensity + @backIncrement), @backColor);
+    @back3: multiply(hsv(0, 0, @backIntensity + 2 * @backIncrement), @backColor);
+    @back4: multiply(hsv(0, 0, @backIntensity + 3 * @backIncrement), @backColor);
+    @back5: multiply(hsv(0, 0, @backIntensity + 4 * @backIncrement), @backColor);
+
+    .theme-generator-mixin(dark) {
+        @text1: #f9f9f9;
+        @text2: #d7d7d7;
+        @text3: #c7c7c7;
+        @text4: #b0b0b0;
+        @text5: #9e9e9e;
+
+        @bAlpha: 0,
+        0,
+        0;
+        @fAlpha: 255,
+        255,
+        255;
+    }
+
+    .theme-generator-mixin(light) {
+        @text1: #181b20;
+        @text2: #1f232a;
+        @text3: #262b33;
+        @text4: #2b323b;
+        @text5: #333a45;
+
+        @bAlpha: 255,
+        255,
+        255;
+        @fAlpha: 0,
+        0,
+        0;
+    }
+
+    .theme-generator-mixin(@theme);
+
+    @accent  : @blue;
+    @accentF2: @blueF1;
+    @accentF1: @blueF2;
+    @accentB2: @blueB2;
+    @accentB1: @blueB1;
+
+    @link: @link_color; // TODO: Change to be lighter on dark mode
+    /*#758bff;*/
+
+    /* UNAPEC */
+    @unapecBlue1: #022646;
+    @unapecBlue2: #02335e;
+    @unapecBlue3: #023f75;
+    @unapecBlue4: #0058a6;
+
+
+
+    /* Transparencies */
+
+    @border : rgba(@fAlpha, 0.3);
+    @borderL: rgba(@fAlpha, 0.15);
+
+    @tableAlt: rgba(0, 0, 0, 10%);
+
+    // TODO: Adapt all colors to light mode (foreground should be darker in light mode)
+    /* Colors */
+    @red     : #f44336;
+    /*500*/
+    @redF1   : #ffcdd2;
+    /*100*/
+    @redF2   : #ef9a9a;
+    /*200*/
+    @redB1   : #b71c1c;
+    /*900*/
+    @redB2   : #d32f2f;
+    /*700*/
+    @orange  : #ff9800;
+    @orangeF1: #ffe0b2;
+    @orangeF2: #ffcc80;
+    @orangeB1: #e65100;
+    @orangeB2: #f57c00;
+
+    @yellow  : #ffeb3b;
+    @yellowF1: #fff9c4;
+    @yellowF2: #fff59d;
+    @yellowB1: #f57f17;
+    @yellowB2: #fbc02d;
+
+    @green  : #4caf50;
+    @greenF1: #c8e6c9;
+    @greenF2: #a5d6a7;
+    @greenB1: #1b5e20;
+    @greenB2: #388e3c;
+
+    @blue  : #2195f3;
+    @blueF1: #bbdefb;
+    @blueF2: #90caf9;
+    @blueB1: #0d47a1;
+    @blueB2: #1976d2;
+
+    @indigo  : #3f51b5;
+    @indigoF1: #c5cae9;
+    @indigoF2: #9fa8da;
+    @indigoB1: #1a237e;
+    @indigoB2: #283593;
+
+    @purple  : #9c27b0;
+    @purpleF1: #e1bee7;
+    @purpleF2: #ce93d8;
+    @purpleB1: #4a148c;
+    @purpleB2: #7b1fa2;
+
+    /* Non color variables*/
+    @borderRadius  : 10px;
+    @borderRadiusUi: 5px;
+    @shadow        : 0px 0px 12px rgba(0, 0, 0, 0.4);
+    @shadowCard    : 0px 0px 8px rgba(0, 0, 0, 0.1);
+
+
+    /* General MIXINS */
+    .GenericInput() {
+        // MIXIN
+        background-color: @back1;
+        color           : @text2;
+        border          : 1px solid @text2;
+        border-radius   : @borderRadiusUi;
+
+        &:not(:disabled):not(.disabled) {
+
+            &:active,
+            &:hover,
+            &:focus {
+                background-color: darken(@back1, 5%);
+                color           : @text1;
+            }
+        }
+
+        &:disabled,
+        &.disabled {
+            background-color: @back2;
+            color           : @text4;
+            border-color    : @text4;
+        }
+    }
+
+    .ColorButton(@color: @accent, @borderColor: transparent) {
+        // MIXIN
+        .GenericInput();
+        background-color: @color;
+        border-color    : @borderColor;
+        color           : @text1;
+
+        &:not(:disabled):not(.disabled) {
+
+            &:hover,
+            &:focus {
+                // TODO: Make text depend on color luminosity (light red + white text looks bad)
+                background-color: darken(@color, 10%);
+                color           : @text1;
+                border-color    : darken(@borderColor, 10%);
+            }
+        }
+
+        &:disabled,
+        &.disabled {
+            opacity         : 100%;
+            background-color: desaturate(@color, 50%);
+            color           : fadeout(@text1, 30%);
+            border-color    : fadeout(@borderColor, 30%);
+        }
+    }
+
+
+    //############################################################
+
+
+
+
+    /** CUSTOM SCROLLBAR **/
+    // width
+    ::-webkit-scrollbar {
+        width : 10px;
+        height: 10px;
+    }
+
+    // track
+    ::-webkit-scrollbar-track {
+        background   : rgba(128, 128, 128, 0.5);
+        box-shadow   : inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+        border-radius: 100px;
+    }
+
+    // handle
+    ::-webkit-scrollbar-thumb {
+        border          : 0px solid rgba(0, 0, 0, 0);
+        box-shadow      : inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+        background-clip : padding-box;
+        background-color: @text4;
+        border-radius   : 100px;
+    }
+
+    ::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+
+    // TODO: Find use case
+    body::-webkit-scrollbar {
+        /* width */
+        width : 10px;
+        height: 10px;
+    }
+
+    body::-webkit-scrollbar-track {
+        border-radius: 0px;
+        background   : transparent;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        /* Track */
+        border-radius: 3px;
+    }
+
+    /** MAIN BODY **/
+    body {
+        font-family: "Roboto", sans-serif;
+    }
+
+    h1,
+    h2,
+    h3 {
+        font-family: "Noto Sans", sans-serif;
+    }
+
+    .BaseLevel() {
+        // MIXIN
+        background-color: @back1;
+        color           : @text1;
+    }
+
+    html,
+    body,
+    textarea {
+        // TODO: Move textarea to input zone
+        .BaseLevel();
+    }
+
+    /*.block {
+        // usage: on START => Calendario, Manuales y Tutoriales, Usuarios en Linea
+        // TODO: Possibly unnecesary, as they are now .card
+        .BaseLevel();
+      }*/
+
+    // Stuff added May 2020
+    // TODO: Add Usages
+    .bg-white {
+        //usage: everywhere
+        background-color: @back1  !important;
+    }
+
+    .bg-light {
+        // usage: on https://eva.unapec.edu.do/moodle/message/index.php
+        background-color: rgba(@fAlpha, 1%) !important;
+    }
+
+    .bg-secondary {
+        background-color: rgba(@fAlpha, 10%);
+    }
+
+    .border {
+        border: 1px solid @border  !important; //1px solid var(--border) !important;
+    }
+
+    // Separators (pretty much a wild border?)
+    hr {
+        border-top: 1px solid @borderL
+    }
+
+    // Breadcrumb
+    .Card() {
+        background-color: @back2;
+        border-radius   : @borderRadius;
+        border          : none;
+        // color: @text1; Inherited (maybe)
+        //box-shadow    : var(--shadowcard)
+        // MIXIN
+    }
+
+    // TODO: Verify usage and delete unused. If any of those are valid, use .card() mixin
+    //#page-enrol-users #filterform,
+    //.que .history,
+    //.groupinforbox,
+    //.userprofile .profile_tree section,
+    //.well,
+    .card,
+    // Usage: on START => Calendario, 
+    #region-main {
+        .Card();
+    }
+
+    .card-body,
+    #region-main {
+        .card-body {
+            // Usage: Calendar page > Events (although later overwritten)
+            .Card();
+            background-color: @back3;
+        }
+    }
+
+    .card-header .commands a {
+
+        &:link,
+        &:visited {
+            // Usage: Calendar page > Custom event config cogs (although later overwritten)
+            color: @text1;
+        }
+    }
+
+    a,
+    a:link,
+    a:hover,
+    a:visited,
+    a:active {
+        color: @link;
+    }
+
+    /** TABLES **/
+    table#explaincaps tbody>tr:nth-child(odd)>td,
+    table#defineroletable tbody>tr:nth-child(odd)>td,
+    table.grading-report tbody>tr:nth-child(odd)>td,
+    table#listdirectories tbody>tr:nth-child(odd)>td,
+    table.rolecaps tbody>tr:nth-child(odd)>td,
+    table.userenrolment tbody>tr:nth-child(odd)>td,
+    table#form tbody>tr:nth-child(odd)>td,
+    form#movecourses table tbody>tr:nth-child(odd)>td,
+    #page-admin-course-index .editcourse tbody>tr:nth-child(odd)>td,
+    .forumheaderlist tbody>tr:nth-child(odd)>td,
+    table.flexible tbody>tr:nth-child(odd)>td,
+    .generaltable tbody>tr:nth-child(odd)>td,
+    table#explaincaps tbody>tr:nth-child(odd)>th,
+    table#defineroletable tbody>tr:nth-child(odd)>th,
+    table.grading-report tbody>tr:nth-child(odd)>th,
+    table#listdirectories tbody>tr:nth-child(odd)>th,
+    table.rolecaps tbody>tr:nth-child(odd)>th,
+    table.userenrolment tbody>tr:nth-child(odd)>th,
+    table#form tbody>tr:nth-child(odd)>th,
+    form#movecourses table tbody>tr:nth-child(odd)>th,
+    #page-admin-course-index .editcourse tbody>tr:nth-child(odd)>th,
+    .forumheaderlist tbody>tr:nth-child(odd)>th,
+    table.flexible tbody>tr:nth-child(odd)>th,
+    .generaltable tbody>tr:nth-child(odd)>th,
+    .yui3-skin-sam .yui3-datatable-odd .yui3-datatable-cell,
+    .preferences-container .preference-table tr th:nth-child(even),
+    .preferences-container .preference-table tr td:nth-child(even),
+    .courses .coursebox.even {
+        background-color: @tableAlt;
+    }
+
+    .table,
+    table.collection,
+    table.flexible,
+    .generaltable {
+        // Usage: https://eva.unapec.edu.do/moodle/message/notificationpreferences.php
+        color: @text2;
+
+        th,
+        td {
+            border-top: 1px solid @borderL;
+        }
+    }
+
+    .table-hover tbody tr:hover,
+    table.grading-report tbody tr:hover,
+    .forumheaderlist tbody tr:hover,
+    .generaltable tbody tr:hover,
+    table.flexible tbody tr:hover,
+    .category_subcategories tbody tr:hover,
+    table#modules tbody tr:hover,
+    table#permissions tbody tr:hover {
+        color           : @text3;
+        background-color: @tableAlt;
+    }
+
+    .yui3-skin-sam {
+
+        // TODO: Find usage
+        //.path-mod-assign .gradingtable tr.unselectedrow td, // TODO: Find usage of this line
+        .yui3-datatable-even .yui3-datatable-cell {
+            background-color: red;
+        }
+
+        .yui3-datatable-data {
+            .yui3-datatable-even .yui3-datatable-sorted {
+                background-color: red; //rgba(0, 0, 0, 15%);
+            }
+
+            .yui3-datatable-odd .yui3-datatable-sorted {
+                background-color: red; //rgba(0, 0, 0, 10%);
+            }
+        }
+
+        .yui3-datatable-sort-indicator {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='white' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+        }
+
+        // LEGACY???
+        /*.yui3-skin-sam .yui3-datatable-columns .yui3-datatable-sorted,
+  .yui3-skin-sam .yui3-datatable-sortable-column:hover {
+    background: var(--back4);
+  }
+  .yui3-skin-sam .yui3-datatable-header {
+    text-shadow: none;
+    color: var(--text1);
+  }*/
+    }
+
+
+    /* Preferences */
+    // Usage: https://eva.unapec.edu.do/moodle/message/notificationpreferences.php
+    .preferences-container .preference-table {
+        border: none;
+
+        tr th {
+            border-bottom-color: @accent;
+            vertical-align     : bottom;
+            padding-top        : 20px;
+
+            h4 {
+                line-height  : 1;
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    /* Fix to assignment bad table formatting */
+    .path-mod-assign {
+
+        // Usage: Any Assigment (https://eva.unapec.edu.do/moodle/mod/assign/view.php)
+        .submissionsummarytable,
+        .mod-assign-history-panel {
+            .c0 {
+                width: 13em;
+            }
+        }
+    }
+
+
+    /** Inside a course **/
+    // TODO: Move to its own moz-document
+    .course-content {
+        >ul>li.section.main {
+            border-bottom: 1px solid @borderL;
+
+            h3.sectionname {
+                color: @text2;
+            }
+
+            &:nth-child(even) {
+                background-color: rgba(0, 0, 0, 10%);
+            }
+
+            &.current {
+                background-color: @back3;
+
+                &::before {
+                    border-left: 4px solid @accent;
+                }
+            }
+        }
+
+        // Fix for ugly empty courses
+        >ul.topics>li.section,
+        ul.weeks li.section {
+            margin-top    : 0;
+            padding-top   : 2rem;
+            padding-bottom: 2rem;
+        }
+    }
+
+    .path-grade-report-user .user-grade.generaltable .levelodd {
+        // TODO: Find usage and place in tables section?
+        background-color: red; //#f9f9f900;
+    }
+
+    // TODO: Verify using teacher account!
+    #pageheader-middle-right {
+        min-height      : 68px;
+        background-color: red; //#4b5b94;
+    }
+
+    // TODO: Verify using teacher account!
+    #pageheader-middle-left {
+        background-color: red; //#7289da;
+    }
+
+    // TODO: Verify using teacher account!
+    .block_simple_clock .clock {
+        color: red; //@text1;
+    }
+
+
+    /** DOCK (Left pane) **/
+    #nav-drawer {
+        top        : 39px;
+        padding-top: 2em;
+
+        ul>li {
+            &:first-child {
+                border-top-left-radius : @borderRadius;
+                border-top-right-radius: @borderRadius;
+                overflow               : hidden;
+            }
+
+            &:last-child {
+                border-bottom-left-radius : @borderRadius;
+                border-bottom-right-radius: @borderRadius;
+                overflow                  : hidden;
+            }
+        }
+    }
+
+    [data-region="drawer"] {
+        color           : @text2;
+        background-color: @back2;
+        box-shadow      : @shadowCard;
+    }
+
+    .list-group-item {
+        background-color: @back3;
+        border          : none;
+    }
+
+    .list-group-item-action,
+    a.list-group-item-action {
+        color: @text2;
+
+        &:not(.active) {
+
+            &:hover,
+            &:focus {
+                color           : @text1;
+                background-color: @back4;
+            }
+        }
+    }
+
+    /** EVA FOOTER AND NAVBAR HEADER **/
+
+    // Footer
+    footer {
+        .direccion {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        a,
+        a:link,
+        a:visited {
+            color: hsla(223, 82%, 50%, .8) !important;
+        }
+
+        background: linear-gradient(0deg, rgba(0, 0, 0, 40%) 10%, rgba(0, 0, 0, 0%)) !important;
+
+        .container {
+            padding-bottom: 1.5rem;
+            padding-top   : 7rem;
+        }
+
+        .redes ul {
+            // On compact mode (reduce page width to see)
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+    }
+
+    // Header
+    .navbar.navbar-expand {
+        background: if(@theme =dark, @unapecBlue2, @back2) !important;
+
+        // Drawer toggle button
+        div.d-inline-block button {
+            color           : @text1;
+            background-color: transparent !important;
+            border          : none;
+
+            &:focus {
+                box-shadow   : 0 0 0 2px rgba(@fAlpha, 0.1);
+                border-radius: 1px;
+            }
+
+            &:active {
+                color: @text2;
+            }
+        }
+
+        .count-container {
+            border-radius: 50%;
+            height       : 1.5em;
+            min-width    : 1.5em;
+            text-align   : center;
+            left         : 17px;
+            top          : 1px;
+        }
+    }
+
+    // Replace header logo with footer logo (has white letters)
+    .d-md-inline img {
+        background     : if(@theme =dark, url("https://eva.unapec.edu.do/moodle/theme/boost/pix/logo-pie.png"), url("https://eva.unapec.edu.do/moodle/theme/boost/pix/logo_azul.png")) no-repeat;
+        display        : block;
+        -moz-box-sizing: border-box;
+        box-sizing     : border-box;
+        width          : 180px;
+        height         : 40px;
+        padding-left   : 180px;
+        background-size: contain;
+    }
+
+    // Top navbar (Inicio, Biblioteca...)
+    .navbar.menu-top {
+        >div {
+            background : rgba(0, 0, 0, 0.2) !important;
+            font-family: "Roboto Condensed", "Noto Sans", "Roboto", sans-serif;
+        }
+
+        a.nav-link {
+            color: @text1;
+        }
+    }
+
+    // Color for notification bell + messages bubble
+    .navbar-light .navbar-nav .nav-link {
+        color: @text1;
+
+        &:hover,
+        &:focus {
+            color: @text2;
+        }
+    }
+
+    pre {
+        // TODO: Verify usage and move to another section
+        color: red; // @text1;
+    }
+
+
+    /** UI ELEMENTS **/
+    .btn {
+        border-radius: @borderRadiusUi;
+    }
+
+    select,
+    button,
+    .custom-select,
+    .form-control {
+        .GenericInput();
+    }
+
+
+    // Buttons 
+    // Usage: most can be seen on chat menu
+    .btn-secondary,
+    a.btn-secondary,
+    .btn-outline-secondary {
+        .ColorButton(@back1, @text1);
+    }
+
+    .btn-primary,
+    a.btn-primary {
+        .ColorButton();
+    }
+
+    .btn-info,
+    a.btn-info {
+        .ColorButton(@blue);
+    }
+
+    .btn-danger {
+        // Chat > Contacto > Bloquear
+        .ColorButton(@red);
+    }
+
+    // Custom select
+    // Usage: Archivos privados > Selector de archivos > Subir un archivo > Licencia
+    .custom-select {
+        background-image       : url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='white' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+        background-repeat      : no-repeat;
+        background-position    : right 0.75rem center;
+        -webkit-background-size: 8px 10px;
+        background-size        : 8px 10px;
+    }
+
+    // Input groups (added May 2020)
+    .input-group {
+        .GenericInput();
+
+        button,
+        .form-control {
+            border          : none;
+            background-color: transparent;
+        }
+
+        // Icons that accompany inputs
+        .input-group-text {
+            border          : none;
+            background-color: transparent;
+            color           : rgba(@fAlpha, 30%);
+            border-radius   : @borderRadiusUi;
+
+            &.bg-white {
+                background-color: transparent;
+            }
+        }
+    }
+
+    // Pagination
+    .page-link {
+        border: transparent;
+    }
+
+    .page-item.active .page-link {
+        background-color: @accent;
+        border-color    : @border;
+        color           : white;
+    }
+
+    .page-link,
+    .page-item.disabled .page-link,
+    a.page-link {
+        background-color: @back1;
+        color           : @text3;
+    }
+
+    a.page-link:hover {
+        background-color: rgba(@fAlpha, 10%);
+        color           : @text1;
+    }
+
+    .page-item.disabled .page-link {
+        color: rgba(@fAlpha, 30%);
+    }
+
+    ul.pagination {
+        border: 1px solid @text2;
+
+        &:first-child {
+            border-top-left-radius   : @borderRadiusUi;
+            border-bottom-left-radius: @borderRadiusUi;
+            overflow                 : hidden;
+        }
+
+        &:last-child {
+            border-top-right-radius   : @borderRadiusUi;
+            border-bottom-right-radius: @borderRadiusUi;
+            overflow                  : hidden;
+        }
+    }
+
+    // Single icons
+    // Usage: Chat 'Send' button
+    .message-app .btn.btn-link.btn-icon:hover,
+    .message-app #page-grade-grading-manage .actions .btn-link.btn-icon.action:hover,
+    .message-app #page-grade-grading-manage .actions .btn-icon.action.btn:hover,
+    .message-app #page-grade-grading-manage .actions #page-grade-grading-manage .actions .btn-icon.action:hover,
+    #page-grade-grading-manage .actions .message-app #page-grade-grading-manage .actions .btn-icon.action:hover,
+    .message-app #page-grade-grading-manage .actions #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon.action:hover,
+    #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel .message-app #page-grade-grading-manage .actions input.btn-icon.action:hover,
+    .message-app #page-grade-grading-manage .actions #rubric-rubric.gradingform_rubric .btn-icon.action.addcriterion:hover,
+    #rubric-rubric.gradingform_rubric .message-app #page-grade-grading-manage .actions .btn-icon.action.addcriterion:hover,
+    #page-grade-grading-manage .actions .message-app .btn-link.btn-icon.action:hover,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-link.btn-icon:hover,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon.btn:hover,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel #page-grade-grading-manage .actions input.btn-icon.action:hover,
+    #page-grade-grading-manage .actions .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon.action:hover,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon:hover,
+    #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon:hover,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel #rubric-rubric.gradingform_rubric input.btn-icon.addcriterion:hover,
+    #rubric-rubric.gradingform_rubric .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon.addcriterion:hover,
+    #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel .message-app input.btn-link.btn-icon:hover,
+    .message-app #rubric-rubric.gradingform_rubric .btn-link.btn-icon.addcriterion:hover,
+    .message-app #rubric-rubric.gradingform_rubric .btn-icon.addcriterion.btn:hover,
+    .message-app #rubric-rubric.gradingform_rubric #page-grade-grading-manage .actions .btn-icon.addcriterion.action:hover,
+    #page-grade-grading-manage .actions .message-app #rubric-rubric.gradingform_rubric .btn-icon.addcriterion.action:hover,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon.addcriterion:hover,
+    #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel .message-app #rubric-rubric.gradingform_rubric input.btn-icon.addcriterion:hover,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-rubric.gradingform_rubric .btn-icon.addcriterion:hover,
+    #rubric-rubric.gradingform_rubric .message-app #rubric-rubric.gradingform_rubric .btn-icon.addcriterion:hover,
+    #rubric-rubric.gradingform_rubric .message-app .btn-link.btn-icon.addcriterion:hover,
+    .message-app .btn.btn-icon:hover,
+    .message-app #page-grade-grading-manage .actions .btn-icon.action:hover,
+    #page-grade-grading-manage .actions .message-app .btn-icon.action:hover,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon:hover,
+    #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel .message-app input.btn-icon:hover,
+    .message-app #rubric-rubric.gradingform_rubric .btn-icon.addcriterion:hover,
+    #rubric-rubric.gradingform_rubric .message-app .btn-icon.addcriterion:hover,
+    .message-app .btn.btn-link.btn-icon:focus,
+    .message-app #page-grade-grading-manage .actions .btn-link.btn-icon.action:focus,
+    .message-app #page-grade-grading-manage .actions .btn-icon.action.btn:focus,
+    .message-app #page-grade-grading-manage .actions #page-grade-grading-manage .actions .btn-icon.action:focus,
+    #page-grade-grading-manage .actions .message-app #page-grade-grading-manage .actions .btn-icon.action:focus,
+    .message-app #page-grade-grading-manage .actions #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon.action:focus,
+    #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel .message-app #page-grade-grading-manage .actions input.btn-icon.action:focus,
+    .message-app #page-grade-grading-manage .actions #rubric-rubric.gradingform_rubric .btn-icon.action.addcriterion:focus,
+    #rubric-rubric.gradingform_rubric .message-app #page-grade-grading-manage .actions .btn-icon.action.addcriterion:focus,
+    #page-grade-grading-manage .actions .message-app .btn-link.btn-icon.action:focus,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-link.btn-icon:focus,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon.btn:focus,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel #page-grade-grading-manage .actions input.btn-icon.action:focus,
+    #page-grade-grading-manage .actions .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon.action:focus,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon:focus,
+    #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon:focus,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel #rubric-rubric.gradingform_rubric input.btn-icon.addcriterion:focus,
+    #rubric-rubric.gradingform_rubric .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon.addcriterion:focus,
+    #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel .message-app input.btn-link.btn-icon:focus,
+    .message-app #rubric-rubric.gradingform_rubric .btn-link.btn-icon.addcriterion:focus,
+    .message-app #rubric-rubric.gradingform_rubric .btn-icon.addcriterion.btn:focus,
+    .message-app #rubric-rubric.gradingform_rubric #page-grade-grading-manage .actions .btn-icon.addcriterion.action:focus,
+    #page-grade-grading-manage .actions .message-app #rubric-rubric.gradingform_rubric .btn-icon.addcriterion.action:focus,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon.addcriterion:focus,
+    #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel .message-app #rubric-rubric.gradingform_rubric input.btn-icon.addcriterion:focus,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-rubric.gradingform_rubric .btn-icon.addcriterion:focus,
+    #rubric-rubric.gradingform_rubric .message-app #rubric-rubric.gradingform_rubric .btn-icon.addcriterion:focus,
+    #rubric-rubric.gradingform_rubric .message-app .btn-link.btn-icon.addcriterion:focus,
+    .message-app .btn.btn-icon:focus,
+    .message-app #page-grade-grading-manage .actions .btn-icon.action:focus,
+    #page-grade-grading-manage .actions .message-app .btn-icon.action:focus,
+    .message-app #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel input.btn-icon:focus,
+    #rubric-rubric.gradingform_rubric #rubric-criteria .criterion .addlevel .message-app input.btn-icon:focus,
+    .message-app #rubric-rubric.gradingform_rubric .btn-icon.addcriterion:focus,
+    #rubric-rubric.gradingform_rubric .message-app .btn-icon.addcriterion:focus {
+        background-color: rgba(@fAlpha, 10%);
+    }
+
+
+    /** OTHER UI ELEMENTS **/
+
+    // Transparent images inside a course (+ rounded borders)
+    #region-main .contentwithoutlink img {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVDhPY/zw4cN/BiIAPz8/w79//6A83IAJSlMNDDMDmZiYCGOoWqqBUQMpB4z/gQDKxgs+fvwIZeEHTKDsRAiTAkZjmXIwaiClgIEBAHJwKOxI6gmIAAAAAElFTkSuQmCC");
+        color           : darkgray;
+        border-radius   : @borderRadiusUi;
+        margin          : 2px;
+    }
+
+
+
+    /* Notifications menu */
+    .popover-region-toggle::before,
+    .popover-region-toggle::after {
+        // Remove little arrow
+        visibility: hidden;
+    }
+
+    .popover-region-container {
+        // Whole notification box
+        background-color: @back1;
+        border          : 1px solid @border;
+        box-shadow      : @shadow;
+        border-radius   : @borderRadius;
+    }
+
+    .popover-region-header-container {
+        // Header 'Notificaciones'
+        border-bottom: 1px solid @borderL;
+        margin       : 5px;
+    }
+
+    .popover-region-header-container a {
+        // Confirm and configuration buttons
+        color: @text2;
+
+        &:hover {
+            color: @text4;
+        }
+    }
+
+    .popover-region-footer-container {
+        /* Footer 'Verlo todo'*/
+        .GenericInput();
+        border                 : 1px solid @borderL;
+        border-top-color       : transparent;
+        border-bottom          : 1px solid @border;
+        border-radius          : @borderRadius;
+        border-top-left-radius : 0px;
+        border-top-right-radius: 0px;
+        color                  : @text3;
+        font-family            : "Noto Sans", sans-serif;
+    }
+
+    .content-item-container {
+        // Single item of notification menu
+        border-bottom: 1px solid @borderL;
+        margin       : 2px 0px 0px 0px;
+        padding      : 5px 10px 20px 10px;
+
+        &:hover {
+            background-color: @back2;
+        }
+
+        &.unread {
+            background-color: @back3;
+
+            &:hover {
+                background-color: fadeout(@accent, 80%);
+            }
+        }
+
+        .content-item-footer .timestamp {
+            color: @text4;
+        }
+
+        .view-more {
+            bottom: 10px;
+            right : 10px;
+        }
+
+    }
+
+    /* Drop down menus*/
+    // Usage: When you click your account pic
+    .action-menu .dropdown-toggle {
+        color: @text1;
+    }
+
+    .dropdown-menu {
+        .popover-region-container();
+
+        .dropdown-divider {
+            border-top-color: @borderL;
+        }
+
+        .dropdown-item,
+        a.dropdown-item {
+            color: @text2;
+
+            &:hover,
+            &:focus {
+                color           : @text1;
+                text-decoration : none;
+                background-color: rgba(@fAlpha, 10%);
+            }
+        }
+    }
+
+    // Loading pages overlay color + animation
+    // Usage: Calendar loading
+    @keyframes loadingOverlayPulse {
+        from {
+            background-color: rgba(0, 0, 0, 50%);
+        }
+
+        to {
+            background-color: rgba(0, 0, 0, 15%);
+        }
+    }
+
+    .overlay-icon-container {
+        background-color: transparent;
+        border-radius   : @borderRadius;
+        animation       : loadingOverlayPulse 0.7s ease-in-out alternate-reverse infinite;
+        backdrop-filter : blur(2px);
+    }
+
+
+
+    /** CALENDAR **/
+    .calendar_event_course {
+        background-color: @blueB2  !important;
+        border-color    : transparent !important;
+    }
+
+    .calendar_event_site {
+        background-color: @greenB2  !important;
+        border-color    : transparent !important;
+    }
+
+    .calendar_event_category {
+        background-color: @purpleB2  !important;
+        border-color    : transparent !important;
+    }
+
+    .calendar_event_group {
+        background-color: @yellowB2  !important;
+        border-color    : transparent !important;
+    }
+
+    .calendar_event_user {
+        background-color: @redB2  !important;
+        border-color    : transparent !important;
+    }
+
+    .day>a {
+        color: rgba(@fAlpha, 80%);
+    }
+
+    .block .minicalendar {
+        tbody tr {
+            color: rgba(@fAlpha, 70%);
+        }
+
+        td.weekend {
+            color: rgba(@fAlpha, 30%) !important;
+        }
+
+        td.today {
+            border: 2px solid @text1  !important;
+        }
+    }
+
+    .calendar_filters>ul>li>a>span>i {
+        // "Clase de eventos" (On https://eva.unapec.edu.do/moodle/calendar/view.php)
+        color: rgba(0, 0, 0, 55%);
+    }
+
+    .popover-header,
+    .popover-body {
+        // Calendar event on hover popup
+        background-color: transparent;
+        border-bottom   : none;
+        color           : @text1;
+    }
+
+    .popover {
+        background-color: @back1;
+        border          : 1px solid @border;
+        border-radius   : @borderRadiusUi;
+    }
+
+    .bs-popover-top>.arrow::after,
+    .bs-popover-top>.arrow::before {
+        border: none;
+    }
+
+
+    /** PROFILE **/
+    // Usage: https://eva.unapec.edu.do/moodle/user/profile.php
+    .userprofile .profile_tree section {
+        background-color: @back3;
+        border-radius   : @borderRadius;
+    }
+
+
+    /** EXAMS AND QUIZES **/
+    .que .history {
+        #region-main();
+    }
+
+    // Extracts from original css containing '.que .formulation'
+    #page-mod-quiz-attempt .mod_quiz-blocked_question_warning .que .formulation,
+    #page-mod-quiz-review .mod_quiz-blocked_question_warning .que .formulation {
+        background: rgba(@bAlpha, 15%);
+        border    : 1px solid @borderL;
+    }
+
+    .alert-info,
+    #page-admin-index .releasenoteslink,
+    #adminsettings .form-overridden,
+    .path-mod-quiz .que .formulation,
+    // added .path-mod-quiz to be more specific
+    .assignfeedback_editpdf_widget .label {
+        color           : rgba(@fAlpha, 80%);
+        background-color: fadeout(@blueB1, 40%);
+        border-color    : @borderL;
+
+        hr {
+            border-top-color: @borderL;
+        }
+
+        .alert-link {
+            color: rgba(@fAlpha, 60%);
+        }
+
+
+    }
+
+    // End of extracts from original css
+    .que .formulation {
+        border-radius: @borderRadius;
+    }
+
+    .que .info {
+        // "Pregunta 2; Sin responder aun; Puntaje de 1.00..."
+        background-color: rgba(@fAlpha, 15%);
+        border-radius   : @borderRadius;
+
+        .editquestion img,
+        .questionflag img,
+        .questionflag input {
+            // TODO: Toggle off on light mode (make global variable "dark")
+            filter: brightness(2) saturate(2);
+        }
+    }
+
+    .path-mod-quiz #mod_quiz_navblock .qnbutton {
+        background-color: @back1;
+        color           : @text1;
+        padding-top     : 2px;
+
+        .thispageholder {
+            border: 1px solid @border;
+        }
+    }
+
+    // Colors (extracted from original CSS)
+    /* Neutral */
+    .path-mod-quiz #mod_quiz_navblock .qnbutton.notyetanswered .trafficlight,
+    .path-mod-quiz #mod_quiz_navblock .qnbutton.invalidanswer .trafficlight,
+    .path-mod-quiz #mod_quiz_navblock .qnbutton .trafficlight {
+        background-color: transparent;
+    }
+
+    /* Blocked */
+    .path-mod-quiz #mod_quiz_navblock .qnbutton.blocked .trafficlight {
+        background-color: @redF1;
+    }
+
+    /* Green */
+    .path-mod-quiz #mod_quiz_navblock .qnbutton.correct .trafficlight {
+        background-color: @green;
+    }
+
+    /* Red */
+    .path-mod-quiz #mod_quiz_navblock .qnbutton.notanswered .trafficlight,
+    .path-mod-quiz #mod_quiz_navblock .qnbutton.incorrect .trafficlight {
+        background-color: @red;
+    }
+
+    /* Orange */
+    .path-mod-quiz #mod_quiz_navblock .qnbutton.partiallycorrect .trafficlight {
+        background-color: @orange;
+    }
+
+    /* Gray but now blue (was #868e96) */
+    .path-mod-quiz #mod_quiz_navblock .qnbutton.complete .trafficlight,
+    .path-mod-quiz #mod_quiz_navblock .qnbutton.answersaved .trafficlight,
+    .path-mod-quiz #mod_quiz_navblock .qnbutton.requiresgrading .trafficlight {
+        background-color: @blue;
+    }
+
+    /* Exams results */
+    table.quizreviewsummary td.cell,
+    table.quizreviewsummary th.cell {
+        background-color: @back2;
+    }
+
+
+    /** Homeworks **/
+    // Copy from original css
+    /* Not graded homeworks */
+    .path-mod-assign td.submissionnotgraded,
+    .path-mod-assign div.submissionnotgraded {
+        color           : @text2;
+        background-color: @back2;
+    }
+
+    .path-mod-assign td.submissionstatus,
+    .path-mod-assign div.submissionstatus,
+    .path-mod-assign a:link.submissionstatus {
+        color           : @text1;
+        background-color: rgba(@bAlpha, 20%);
+    }
+
+    /* Green */
+    .path-mod-assign td.submissionstatussubmitted,
+    .path-mod-assign div.submissionstatussubmitted,
+    .path-mod-assign a:link.submissionstatussubmitted,
+    .path-mod-assign td.submissiongraded,
+    .path-mod-assign div.submissiongraded,
+    .path-mod-assign td.earlysubmission,
+    .path-mod-assign div.earlysubmission {
+        color           : @text1;
+        background-color: @green;
+    }
+
+    /* Red */
+    .path-mod-assign td.latesubmission,
+    .path-mod-assign a:link.latesubmission,
+    .path-mod-assign div.latesubmission,
+    .alert-danger,
+    #page-admin-index .adminerror,
+    .environmenttable .error,
+    #plugins-check-page #plugins-check .status-missing td,
+    #plugins-check-page #plugins-check .status-downgrade td,
+    #plugins-check-page .pluginupdateinfo.maturity50,
+    #plugins-control-panel .pluginupdateinfo.maturity50,
+    #adminsettings span.error,
+    #page-backup-restore .filealiasesfailures {
+        color           : @text1;
+        background-color: @red;
+    }
+
+    .alert-danger a,
+    #page-admin-index .adminerror a,
+    .environmenttable .error a,
+    #plugins-check-page #plugins-check .status-missing td a,
+    #plugins-check-page #plugins-check .status-downgrade td a,
+    #plugins-check-page .pluginupdateinfo.maturity50 a,
+    #plugins-control-panel .pluginupdateinfo.maturity50 a,
+    #adminsettings span.error a,
+    #page-backup-restore .filealiasesfailures a {
+        /* Fix links in errors*/
+        color: @redF1;
+    }
+
+    /* Information Blue (Light) */
+    .alert-info,
+    #page-admin-index .releasenoteslink,
+    #adminsettings .form-overridden,
+    .que .formulation,
+    #plugins-check-page .pluginupdateinfo,
+    #plugins-control-panel .pluginupdateinfo,
+    span.editinstructions,
+    #dndupload-status {
+        color           : @text1;
+        background-color: @blueB1;
+    }
+
+    /* Alert warning (yellow) */
+    .alert-warning,
+    #page-admin-index .adminwarning,
+    .uninstalldeleteconfirmexternal,
+    .que .outcome,
+    .que .comment {
+        color           : @text1;
+        background-color: @yellowB2;
+        border-color    : transparent;
+    }
+
+    .alert-warning hr,
+    #page-admin-index .adminwarning hr,
+    .uninstalldeleteconfirmexternal hr,
+    .que .outcome hr,
+    .que .comment hr {
+        border-top-color: transparent;
+    }
+
+    .alert-warning .alert-link,
+    #page-admin-index .adminwarning .alert-link,
+    .uninstalldeleteconfirmexternal .alert-link,
+    .que .outcome .alert-link,
+    .que .comment .alert-link {
+        color: @yellowB2;
+    }
+
+
+    /** Download window stuff **/
+
+    // No files uploaded: 'Arrastre y suelte los archivos aqui para subirlo'
+    .fitem {
+
+        // Empty 'Arrastre y suelte los archivos aqui para subirlo'
+        .filepicker-filelist .filepicker-container,
+        .filemanager.fm-noitems .fm-empty-container {
+            border       : 2px dashed @text1;
+            border-radius: @borderRadius;
+        }
+
+        // Some file being dragged
+        .filepicker-filelist,
+        .filemanager-container {
+            border-color: @text3  !important;
+
+            // Dragging
+            .dndupload-target {
+                background   : @back1;
+                border       : 2px dashed @blue;
+                border-radius: @borderRadius;
+            }
+
+            // Hover over box
+            &.dndupload-over .dndupload-target {
+                background   : @back1;
+                border       : 2px dashed @green;
+                border-radius: @borderRadius;
+            }
+        }
+
+        &.disabled {
+
+            // Disabled
+            .filepicker-filelist,
+            .filemanager-container {
+                background-color: @back2;
+                color           : @text4;
+            }
+        }
+    }
+
+    // File manager
+    .filemanager,
+    .file-picker {
+        div& {
+            border       : @border;
+            padding      : 10px;
+            border-radius: @borderRadius;
+            box-shadow   : @shadowCard;
+            background   : @back3;
+        }
+
+        .card {
+            box-shadow: none;
+            background: transparent;
+        }
+
+        // Table fix
+        .yui3-datatable-header {
+            background : @back4  !important;
+            color      : @text1  !important;
+            text-shadow: none;
+        }
+
+        .yui3-datatable-even .yui3-datatable-cell {
+            background-color: rgba(0, 0, 0, 7%) !important;
+        }
+
+        .yui3-datatable-odd .yui3-datatable-cell {
+            background-color: rgba(0, 0, 0, 15%) !important;
+        }
+
+        // Upload arrow // TODO: Invert on light mode
+        .dndupload-arrow {
+            background-image: if(@theme =dark,
+                    url("data:image/svg+xml,%3Csvg width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cpath fill='%23ffffff' d='M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z'/%3E%3C/svg%3E"),
+                    url("data:image/svg+xml,%3Csvg width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cpath fill='%23333333' d='M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z'/%3E%3C/svg%3E"));
+            background-size  : 60px;
+        }
+
+        // Actual file picker (navbar + content :v)
+        .fp-content {
+            border          : 1px solid @border;
+            background-color: transparent;
+
+            .fp-iconview {
+                .fp-filename-field .fp-filename {
+                    background: transparent;
+                }
+
+                .fp-thumbnail {
+                    border       : none;
+                    background   : rgba(0, 0, 0, 15%);
+                    border-radius: @borderRadius;
+
+                    img {
+                        border: none;
+                    }
+                }
+            }
+        }
+
+        .fp-navbar {
+            border-bottom   : none;
+            background-color: transparent;
+
+            .fp-viewbar a {
+                .GenericInput();
+                border-radius: 0;
+
+                &:first-child {
+                    border-top-left-radius   : @borderRadiusUi;
+                    border-bottom-left-radius: @borderRadiusUi;
+                }
+
+                &:last-child {
+                    border-top-right-radius   : @borderRadiusUi;
+                    border-bottom-right-radius: @borderRadiusUi;
+                }
+            }
+
+            .fp-viewbar:not(.disabled) a.checked:not(.disabled):not(:disabled) {
+                background-color: @accent;
+                color           : white;
+                border-color    : @text1;
+            }
+
+
+        }
+
+        // Fix for black file icon before 'Archivo'
+        .fp-pathbar {
+            .fp-path-folder-name {
+                margin-left: 5px;
+            }
+
+            .fp-path-folder {
+                background-image: none;
+                height          : 25px;
+                display         : flex;
+                align-items     : center;
+
+                &:before {
+                    content: "";
+                    display: inline-block;
+                    width  : 16px;
+                    height : 16px;
+
+                    background     : url("https://eva.unapec.edu.do/moodle/theme/image.php/boost/theme/1584961000/fp/path_folder") left;
+                    background-size: contain;
+
+                    // Artificially make it blue
+                    filter: invert(65%) sepia(100%) hue-rotate(185deg) saturate(3);
+                }
+
+            }
+        }
+
+    }
+
+    // File type icon
+    .fp-select .fp-thumbnail {
+        background   : rgba(0, 0, 0, 20%);
+        border       : none;
+        border-radius: @borderRadius;
+
+        img {
+            border: none;
+        }
+    }
+
+    // progress bar (all progress bars?)
+    .progress {
+        background-color: @back1;
+
+        .progress-bar {
+            background-color: @accent;
+        }
+    }
+
+    /** DIALOGUE WINDOWS **/
+
+    .modal-content,
+    .moodle-dialogue-base .moodle-dialogue-wrap.moodle-dialogue-content,
+    .moodle-dialogue-base .moodle-dialogue-wrap,
+    .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd.yui3-widget-hd,
+    [data-region="confirm-dialogue"],
+    .moodle-dialogue-bd {
+        /* All dialogues (like errors)*/
+        color           : @text1;
+        background-color: @back2;
+        border-radius   : @borderRadius;
+        padding         : 7px;
+    }
+
+    [data-region="confirm-dialogue"] {
+        background-color: @back2  !important;
+    }
+
+    .yui3-panel.moodle-dialogue {
+        /* General dialogue settings*/
+        outline      : none;
+        border-radius: @borderRadius;
+    }
+
+    .yui3-skin-sam .yui3-widget-mask,
+    .modal.show,
+    [data-region="confirm-dialogue-container"] {
+        /* Blur the background*/
+        opacity         : 1;
+        background-color: transparent;
+        backdrop-filter : blur(10px);
+    }
+
+    .close,
+    .moodle-dialogue-base .closebutton,
+    .modal-header .close,
+    .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd .close,
+    .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd .moodle-dialogue-base .closebutton,
+    .moodle-dialogue-base .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd .closebutton,
+    .path-mod-assign [data-region="grade-panel"] .popout>.col-md-3 .close,
+    .path-mod-assign [data-region="grade-panel"] .popout>.col-md-3 .moodle-dialogue-base .closebutton,
+    .moodle-dialogue-base .path-mod-assign [data-region="grade-panel"] .popout>.col-md-3 .closebutton,
+    .modal-header .moodle-dialogue-base .closebutton,
+    .moodle-dialogue-base .modal-header .closebutton,
+    button.close,
+    .moodle-dialogue-base button.closebutton {
+        color           : white;
+        opacity         : 1;
+        font-size       : 1rem;
+        font-weight     : 100;
+        width           : 12px;
+        height          : 12px;
+        line-height     : 0;
+        border-radius   : 20px;
+        text-shadow     : none;
+        background-color: @red;
+        background-image: none;
+        box-shadow      : @shadowCard;
+        padding         : 7px;
+        display         : flex;
+        justify-content : center;
+
+        &:hover:not(.disabled):not(:disabled) {
+            background-color: darken(@red, 15%);
+        }
+    }
+
+    .modal-footer,
+    .moodle-dialogue-base .moodle-dialogue .moodle-dialogue-content .moodle-dialogue-ft {
+        border-top: 1px solid @border;
+    }
+
+    .modal-header,
+    .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd,
+    .path-mod-assign [data-region="grade-panel"] .popout>.col-md-3 {
+        border-bottom: 1px solid @borderL;
+        border-radius: 0 !important;
+    }
+
+    // Assignment comments section
+    .comment-area .db textarea {
+        color: @text1  !important;
+    }
+
+    .comment-ctrl ul.comment-list li[style="color: rgb(0, 102, 238); background-color: rgb(255, 227, 144);"] {
+        // Fresh comment
+        background-color: @yellowB1  !important;
+        color           : @text1  !important;
+    }
+
+
+    // As teacher: Add resource pane
+    #chooseform .instruction,
+    .chooserdialogue .moodle-dialogue-wrap .moodle-dialogue-bd {
+        background: transparent !important;
+    }
+
+    .jschooser .choosercontainer #chooseform .instruction,
+    .jschooser .choosercontainer #chooseform .typesummary {
+        background: @back3;
+    }
+
+    .choosercontainer #chooseform .selected,
+    // Resource pane selection with style below
+    // Little calendar widget (on stats for teachers)
+    .nav-tabs .nav-link.active,
+    .nav-tabs .nav-item.show .nav-link {
+        color           : @text1;
+        background-color: @accent;
+    }
+
+    .nav-tabs .nav-link {
+        border-top-left-radius : @borderRadiusUi;
+        border-top-right-radius: @borderRadiusUi;
+    }
+
+
+    // As teacher: Grading platform
+    .path-mod-assign {
+        [data-region="grade-panel"] {
+            background-color: @back2;
+
+            .fitem.has-popout {
+                background-color: @back1;
+            }
+        }
+
+        [data-region="grade-actions-panel"] {
+            border-top: none;
+        }
+
+        [data-region="assignment-info"],
+        .path-mod-assign [data-region="grading-navigation-panel"] {
+            border-bottom: none;
+        }
+
+    }
+
+    // As teacher: Timer clock:
+    [data-block="teacher_timer"]>.card-body>.card-text {
+        >span {
+            color: @text3  !important;
+        }
+
+        >[alert="card-body"] {
+            background-color: @accent  !important;
+            color           : @text1  !important;
+        }
+
+        >div:not(.card-body):not([alert="card-body"]) {
+            background: @blueB1  !important;
+            color     : @blueF1  !important;
+        }
+
+    }
+
+    /** TEXT EDITOR **/
+    div.editor_atto_toolbar {
+        background             : rgba(0, 0, 0, 5%);
+        border                 : 1px solid @text2;
+        border-top-left-radius : @borderRadiusUi;
+        border-top-right-radius: @borderRadiusUi;
+
+        // Buttons
+        div.atto_group {
+            background   : rgba(@bAlpha, 50%);
+            border       : 1px solid @text3;
+            border-bottom: 1px solid text3;
+            overflow     : hidden;
+        }
+
+        button+button {
+            border-left: 1px solid @text3;
+        }
+
+        button {
+            .icon {
+                // Button color
+                color: rgba(@fAlpha, 75%);
+            }
+
+            &:hover,
+            &:active,
+            &.highlight {
+                background-image: none;
+                background-color: @accent  !important;
+            }
+
+        }
+
+    }
+
+    .editor_atto_content_wrap .editor_atto_content {
+        border-top-left-radius : 0;
+        border-top-right-radius: 0;
+        border-color           : transparent;
+    }
+
+    .editor_atto_content_wrap,
+    .editor_atto+textarea {
+        border                    : 1px solid @text3;
+        border-top                : none;
+        border-bottom-left-radius : @borderRadiusUi;
+        border-bottom-right-radius: @borderRadiusUi;
+    }
+
+
+
+    //########################################################
+    /** MAIN HOME **/
+    #page-header {
+        /* Moodle home img background (force method)*/
+        background-color: transparent !important;
+    }
+
+    .coursebox>.info {
+
+        .coursename_semi a,
+        .coursename_pre a {
+            color : gray;
+            filter: if(@theme =dark, brightness(200%), brightness(75%));
+        }
+    }
+
+    #page-header.portada .container-fluid {
+        color          : white;
+        padding-top    : 30px;
+        padding-bottom : 15px;
+        background     : rgba(12, 17, 90, 0.7) !important;
+        border         : 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(7px);
+        box-shadow     : 0px 0px 20px rgba(0, 0, 0, 0.5);
+        text-shadow    : 0px 0px 7px rgba(0, 0, 0, 0.5);
+    }
+
+    #page-header.portada {
+        margin-bottom: 1rem;
+    }
+
+
+    //########################################################
+    /** CHAT **/
+
+    // Usable drawer width
+    [data-region="right-hand-drawer"].drawer {
+        top   : 88px;
+        bottom: 0px;
+        height: auto;
+        width : 400px;
+    }
+
+    [data-region="view-overview-messages"]>div>.list-group>.list-group-item>div.w-100.text-truncate {
+        margin-bottom: 1rem !important;
+    }
+
+    .message-app {
+        background-color: @back2;
+
+        a {
+            color: @text2;
+        }
+
+        .day {
+            color    : rgba(@fAlpha, 30%);
+            font-size: 80%;
+        }
+
+        .border-top {
+            border-top: 1px solid @borderL  !important;
+        }
+
+        .border-bottom {
+            border-bottom: none !important;
+        }
+
+        .card {
+            margin-bottom: 0.5rem;
+            border-radius: @borderRadius;
+            overflow     : hidden;
+        }
+
+        .card-header .btn-link:not(.btn-icon) {
+            border-radius: 0;
+        }
+
+        .btn-link:not(.btn-icon) {
+            background-color: @back1;
+
+            &:hover {
+                background-color: rgba(@bAlpha, 40%);
+            }
+
+            &:focus {
+                background-color: rgba(@bAlpha, 50%);
+            }
+        }
+
+        .footer-container>.text-center>a {
+            .GenericInput();
+            display      : block;
+            padding      : 5px;
+            margin-top   : 5px;
+            margin-bottom: 15px;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        @keyframes bg-pulse-grey {
+
+            // Animation when loading false text on chats
+            0% {
+                background-color: rgba(@bAlpha, 5%);
+            }
+
+            50% {
+                background-color: rgba(@bAlpha, 10%);
+            }
+
+            100% {
+                background-color: rgba(@bAlpha, 5%);
+            }
+        }
+
+        .emoji-picker .category-button {
+            margin: 1px;
+        }
+
+        .emoji-picker .category-button.selected {
+            border-bottom-width: 3px;
+        }
+
+        // Chat bubbles
+
+        .message {
+            max-width: 80%;
+
+            &.send {
+                background-color: @accentB2;
+                color           : @text1;
+                margin-left     : auto !important;
+
+                .tail {
+                    border-bottom-color: $background-color;
+                }
+            }
+
+            &.received {
+                background-color: @back5;
+                color           : @text1;
+                margin-right    : auto !important;
+
+                .tail {
+                    border-bottom-color: $background-color;
+                }
+            }
+
+            &.send .time,
+            &.received .time {
+                color: rgba(@fAlpha, 50%);
+            }
+
+        }
+
+        .clickable:hover {
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+        }
+    }
+
+
+    //########################################################
+    /** CHAT PAGE **/
+    body#page-message-index {
+        .message-app {
+            &.border {
+                background-color: @back2  !important;
+                border          : 1px solid transparent !important;
+                border-radius   : @borderRadius;
+            }
+
+            .card-header {
+                border: none;
+            }
+
+            .border-right {
+                border-color: @borderL  !important;
+
+                >div {
+                    padding-left : 0.5em;
+                    padding-right: 0.5em;
+                }
+            }
+
+            .col-4 {
+                flex     : 0 0 35%;
+                max-width: 35%;
+            }
+
+            .col-8 {
+                flex     : 0 0 65%;
+                max-width: 65%;
+            }
+
+            // List group that doesnt extend to infinity and beyond.
+            .lazy-load-list {
+                max-height: 500px;
+            }
+
+
+        }
+
+        // Page formatting
+        div.col-12.pt-3.pb-3 {
+            display: none;
+        }
+
+        #region-main {
+            border-radius: 0px;
+        }
+
+        #page-wrapper #page {
+            max-width   : 90rem;
+            margin-left : auto;
+            margin-right: auto;
+        }
+    }
+
+
+
+    //########################################################
+
+    /** TABLERO **/
+    #page-my-index {
+        background-color: transparent;
+
+
+        .card-body .card-body {
+            border-top-left-radius : 0;
+            border-top-right-radius: 0;
+        }
+
+        .dashboard-card-img {
+            border-top-left-radius : @borderRadius;
+            border-top-right-radius: @borderRadius;
+        }
+
+        #region-main .card-body.course-info-container {
+            background-color: transparent;
+        }
+    }
+
+    //########################################################
+
+    /** LOGIN PAGE **/
+    #page-login-index {
+        background-color: transparent;
+
+        #bg-login {
+            /*filter: blur(5px) brightness(0.35);*/
+            background-image: none;
+            background-color: @back1;
+        }
+
+        @blur: 7px;
+
+        a:link,
+        a:hover,
+        a:visited,
+        a:active,
+        span.flagged-tag a {
+            color: white;
+        }
+
+        .navbar {
+            background: @unapecBlue1;
+        }
+
+        /* Mother force to make the logo darkmode proof :) */
+        header .logo img {
+            width          : 146px;
+            height         : 44px;
+            object-fit     : cover;
+            object-position: 100% 0;
+            filter         : grayscale(1) brightness(5);
+        }
+
+        a.logo:before {
+            content       : "";
+            background    : transparent url("https://eva.unapec.edu.do/moodle/theme/boost/pix/logo_azul.png") no-repeat;
+            width         : 34px;
+            height        : 44px;
+            display       : inline-block;
+            vertical-align: middle;
+            margin-right  : 5px;
+        }
+
+        /* Block pieces */
+        @media (min-width: 769px) {
+            .botones {
+                background: transparent;
+            }
+        }
+
+        .botones li {
+            backdrop-filter: blur(@blur);
+        }
+
+        .botones .cal-acad {
+            background-color: rgba(@bAlpha, 0.3);
+        }
+
+        .botones .ayuda {
+            background-color: rgba(@bAlpha, 0.35);
+        }
+
+        .botones .preg-frec {
+            background-color: rgba(@bAlpha, 0.4);
+        }
+
+        .botones .wifi {
+            background-color: rgba(@bAlpha, 0.45);
+        }
+
+        .botones .aulatec {
+            background-color: rgba(@bAlpha, 0.5);
+        }
+
+        .botones .aulatec a {
+            filter: brightness(3) saturate(2) hue-rotate(40deg);
+        }
+
+        .info-eva .texto {
+            background     : rgba(0, 44, 73, 0.6);
+            backdrop-filter: blur(@blur);
+            padding-top    : 30px;
+        }
+
+        .ejmpl {
+            background: @back4;
+        }
+
+        .ejmpl strong {
+            color: #0087ff;
+        }
+
+        h2,
+        .wpr-login ul.links a,
+        #btn-nivel {
+            color: @text3;
+        }
+
+        .nota-info p,
+        #btn-nivel {
+            background-color: @back4;
+        }
+
+        .wpr-login {
+            background: @back2;
+        }
+
+        .curva-vert {
+            display: none;
+        }
+    }
+
+
+    //########################################################
+
+    /** CALENDAR PAGE **/
+
+    #page-calendar-view {
+
+        // Month calendar
+        .maincalendar {
+            .calendarmonth {
+
+                td,
+                th {
+                    border          : 2px dotted @back2;
+                    background-color: @back3;
+                    padding         : 5px;
+                }
+
+                th {
+                    background-color: @back4;
+
+                    &:first-child {
+                        border-top-left-radius: @borderRadius;
+                    }
+
+                    &:last-child {
+                        border-top-right-radius: @borderRadius;
+                    }
+                }
+
+                tr:last-child {
+                    td:first-child {
+                        border-bottom-left-radius: @borderRadius;
+                    }
+
+                    td:last-child {
+                        border-bottom-right-radius: @borderRadius;
+                    }
+                }
+
+                .clickable:hover {
+                    background-color: @back4;
+                }
+
+                .today {
+                    border: 2px solid @text1;
+                }
+
+            }
+
+
+            .bottom {
+                padding-top: 1.5rem;
+            }
+
+            .calendartable {
+
+                td,
+                li {
+                    padding: 0 5px;
+                }
+            }
+
+            // Configuration cog
+            .calendar_event_category:hover a,
+            .calendar_event_course:hover a,
+            .calendar_event_site:hover a,
+            .calendar_event_group:hover a,
+            .calendar_event_user:hover a {
+                color          : @text2;
+                text-decoration: none;
+            }
+
+        }
+
+        // Daily calendar
+        .card .card-header {
+            background-color       : transparent;
+            border-bottom          : 1px solid @borderL;
+            border-top-left-radius : @borderRadius;
+            border-top-right-radius: @borderRadius;
+            padding-top            : 2.2rem;
+            padding-bottom         : 0;
+        }
+
+        #region-main .event .card.rounded {
+            background   : @back3;
+            border-radius: @borderRadius  !important;
+
+            .card-body {
+                border-top-left-radius : 0;
+                border-top-right-radius: 0;
+            }
+
+            .card-footer {
+                border-color: transparent;
+
+                a {
+                    .GenericInput();
+                    padding     : 6px 12px;
+                    margin-left : auto;
+                    margin-right: auto;
+                    float       : right;
+                }
+            }
+        }
+    }
+
+    //########################################################
+
+    /** /moodle/custom/paginas WEIRD STUFF **/
+    /* Very specific css by the php itself */
+    #software-list li span {
+        color: @text2;
+    }
+
+    //########################################################
+
+    /** ENLACES Y SERVICIOS **/
+    #page-custom-paginas-faq.pagelayout-standard,
+    #page-custom-paginas-enlaces {
+        [role="main"] {
+
+            ul,
+            li {
+                list-style: none !important;
+            }
+
+            >div>ul {
+                display        : flex;
+                flex-direction : row;
+                flex-wrap      : wrap;
+                align-items    : baseline;
+                justify-content: space-evenly;
+
+                >li {
+                    flex            : 1 0 25%;
+                    margin          : 5px;
+                    padding         : 10px;
+                    display         : flex;
+                    flex-direction  : column;
+                    align-items     : center;
+                    justify-content : center;
+                    background-color: @back3;
+                    border-color    : @borderL;
+                    border-radius   : @borderRadius;
+
+                    >a {
+                        .GenericInput();
+                        width     : 100%;
+                        text-align: center;
+                        padding   : 5px 15px;
+
+                        &:hover {
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    //########################################################
+
+
+    /** NOTICIAS **/
+    #page-course-view-social {
+
+        #intro>div>p>span {
+            display: none;
+        }
+
+        .forumpost {
+            border          : 1px solid @borderL;
+            border-radius   : @borderRadius;
+            background-color: @back3;
+            padding         : 20px;
+        }
+    }
+
+    //########################################################
+
+    /** MANUALES Y TUTORIALES **/
+    #page-custom-paginas-faq.pagelayout-mypublic {
+        .list-group-item {
+            padding-left: 20px;
+        }
+
+        #region-main .list-group .list-group-item {
+            padding-left: 20px;
+
+            &:first-child {
+                border-top-left-radius : @borderRadius;
+                border-top-right-radius: @borderRadius;
+            }
+
+            &:last-child {
+                border-bottom-left-radius : @borderRadius;
+                border-bottom-right-radius: @borderRadius;
+            }
+        }
+
+
+        #page {
+            margin-top: 0;
+        }
+
+        header#page-header {
+            display: none;
+        }
+    }
+
+}
+
+
+
+
+@-moz-document url-prefix("https://eva.unapec.edu.do/moodle/mod/assign/"),
+url-prefix("https://eva.unapec.edu.do/moodle/user/"),
+url-prefix("https://eva.unapec.edu.do/moodle/custom/paginas/") {
+
+    /** Outer div of single card pages **/
+    #page-wrapper #page {
+        max-width   : 70rem;
+        margin-left : auto;
+        margin-right: auto;
+    }
+}
