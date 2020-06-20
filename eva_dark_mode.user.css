@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.0.3
+@version        2.1.1
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -14,11 +14,25 @@
     'Light  ': 'light',
     'Custom ': 'custom'
 }
-
-@var color link_color 'Color: Link' #1976d2
-@var color tone_color 'Color: Base tone' rgb(186,216,255)
 @var range back_intensity 'Color: Background base' [15, 0, 90, 1, '%']
 @var range back_increment 'Color: Background increment' [5, 0, 25, 1, '%']
+@var color tone_color 'Color: Base tone' rgb(186,216,255)
+
+@var select link_color_mode 'Link color-scheme' {
+    'Theme  *': 'theme',
+    'Custom ': 'custom'
+}
+@var color link_color 'Color: Link (custom)' #1976d2
+
+@var select accent_color_mode 'Accent color: ' {
+    'Red   ' : 'red',
+    'Orange' : 'orange',
+    'Yellow' : 'yellow',
+    'Green ' : 'green',
+    'Blue *' : 'blue',
+    'Indigo' : 'indigo',
+    'Purple' : 'purple'
+}
 
 ==/UserStyle== */
 
@@ -49,8 +63,8 @@
     }
 
     .theme-mixin(light) {
-        @backIntensity: 84%;
-        @backIncrement: 4%;
+        @backIntensity: 85%;
+        @backIncrement: 5%;
         @toneColor    : rgb(255, 255, 255);
         @theme        : light;
     }
@@ -72,15 +86,60 @@
     @back2: rgb(37, 43, 51);
     @back3: rgb(47, 54, 64);
     @back4: rgb(56, 65, 77);
-    @back5: rgb(65, 76, 89);
+    @back5: rgb(65, 76, 89); //unused
     */
 
     @back1: multiply(hsv(0, 0, @backIntensity), @backColor);
     @back2: multiply(hsv(0, 0, @backIntensity + @backIncrement), @backColor);
     @back3: multiply(hsv(0, 0, @backIntensity + 2 * @backIncrement), @backColor);
     @back4: multiply(hsv(0, 0, @backIntensity + 3 * @backIncrement), @backColor);
-    @back5: multiply(hsv(0, 0, @backIntensity + 4 * @backIncrement), @backColor);
 
+
+    /* COLORS */
+    @red    : #f44336;
+    @orange : #ff9800;
+    @yellow : #ffeb3b;
+    @green  : #4caf50;
+    @blue   : #2195f3;
+    @indigo : #3f51b5;
+    @purple : #9c27b0;
+
+    @red100 : #ffcdd2;
+    @red200 : #ef9a9a;
+    @red700 : #d32f2f;
+    @red900 : #b71c1c;
+
+    @orange100: #ffe0b2;
+    @orange200: #ffcc80;
+    @orange700: #f57c00;
+    @orange900: #e65100;
+
+    @yellow100: #fff9c4;
+    @yellow200: #fff59d;
+    @yellow700: #fbc02d;
+    @yellow900: #f57f17;
+
+    @green100: #c8e6c9;
+    @green200: #a5d6a7;
+    @green900: #1b5e20;
+    @green700: #388e3c;
+
+    @blue100: #bbdefb;
+    @blue200: #90caf9;
+    @blue700: #1976d2;
+    @blue900: #0d47a1;
+
+    @indigo100: #c5cae9;
+    @indigo200: #9fa8da;
+    @indigo700: #283593;
+    @indigo900: #1a237e;
+
+    @purple100: #e1bee7;
+    @purple200: #ce93d8;
+    @purple700: #7b1fa2;
+    @purple900: #4a148c;
+
+    /* THEME COLORS VARIATIONS */
     .theme-generator-mixin(dark) {
         @text1: #f9f9f9;
         @text2: #d7d7d7;
@@ -94,6 +153,52 @@
         @fAlpha: 255,
         255,
         255;
+
+        @linkThemeColor: rgb(80, 150, 255);
+
+        /* LESS loops are confusing...
+            var text = '';
+            var tones = {'B1':'700','B2':'900','F1':'200','F2':'100'};
+            ['red','orange','yellow','green','blue','indigo','purple'].forEach((e) => {
+            for (const [key, val] of Object.entries(tones)) {
+            text += `@${e}${key}: @${e}${val};\n`;
+            }});
+            console.log(text);
+        */
+        @redB1: @red700;
+        @redB2: @red900;
+        @redF1: @red200;
+        @redF2: @red100;
+
+        @orangeB1: @orange700;
+        @orangeB2: @orange900;
+        @orangeF1: @orange200;
+        @orangeF2: @orange100;
+
+        @yellowB1: @yellow700;
+        @yellowB2: @yellow900;
+        @yellowF1: @yellow200;
+        @yellowF2: @yellow100;
+
+        @greenB1: @green700;
+        @greenB2: @green900;
+        @greenF1: @green200;
+        @greenF2: @green100;
+
+        @blueB1: @blue700;
+        @blueB2: @blue900;
+        @blueF1: @blue200;
+        @blueF2: @blue100;
+
+        @indigoB1: @indigo700;
+        @indigoB2: @indigo900;
+        @indigoF1: @indigo200;
+        @indigoF2: @indigo100;
+
+        @purpleB1: @purple700;
+        @purpleB2: @purple900;
+        @purpleF1: @purple200;
+        @purpleF2: @purple100;
     }
 
     .theme-generator-mixin(light) {
@@ -109,81 +214,122 @@
         @fAlpha: 0,
         0,
         0;
+
+        @linkThemeColor: rgb(42, 113, 222);
+
+        /* As I said, LESS loops are terrifying
+            var text = '';
+            var tones = {'F1':'700','F2':'900','B1':'200','B2':'100'};
+            ['red','orange','yellow','green','blue','indigo','purple'].forEach((e) => {
+            for (const [key, val] of Object.entries(tones)) {
+            text += `@${e}${key}: @${e}${val};\n`;
+            }});
+            console.log(text);
+        */
+        @redF1: @red700;
+        @redF2: @red900;
+        @redB1: @red200;
+        @redB2: @red100;
+
+        @orangeF1: @orange700;
+        @orangeF2: @orange900;
+        @orangeB1: @orange200;
+        @orangeB2: @orange100;
+
+        @yellowF1: @yellow700;
+        @yellowF2: @yellow900;
+        @yellowB1: @yellow200;
+        @yellowB2: @yellow100;
+
+        @greenF1: @green700;
+        @greenF2: @green900;
+        @greenB1: @green200;
+        @greenB2: @green100;
+
+        @blueF1: @blue700;
+        @blueF2: @blue900;
+        @blueB1: @blue200;
+        @blueB2: @blue100;
+
+        @indigoF1: @indigo700;
+        @indigoF2: @indigo900;
+        @indigoB1: @indigo200;
+        @indigoB2: @indigo100;
+
+        @purpleF1: @purple700;
+        @purpleF2: @purple900;
+        @purpleB1: @purple200;
+        @purpleB2: @purple100;
     }
 
     .theme-generator-mixin(@theme);
 
+
+
+    /*
     @accent  : @blue;
-    @accentF2: @blueF1;
-    @accentF1: @blueF2;
+    @accentF2: @blueF2;
+    @accentF1: @blueF1;
     @accentB2: @blueB2;
     @accentB1: @blueB1;
+    */
 
-    @link: @link_color; // TODO: Change to be lighter on dark mode
-    /*#758bff;*/
+    /* ACCENT VARIATIONS */
+    .accent-generator-mixin(@c) {
+        @tmp900: '@{c}900';
+        @tmp700: '@{c}700';
+        @tmp200: '@{c}200';
+        @tmp100: '@{c}100';
+        @tmpB1 : '@{c}B1';
+        @tmpB2 : '@{c}B2';
+        @tmpF1 : '@{c}F1';
+        @tmpF2 : '@{c}F2';
+
+        @accent   : @@c;
+        @accent900: @@tmp900;
+        @accent700: @@tmp700;
+        @accent200: @@tmp200;
+        @accent100: @@tmp100;
+        @accentB1 : @@tmpB1;
+        @accentB2 : @@tmpB2;
+        @accentF1 : @@tmpF1;
+        @accentF2 : @@tmpF2;
+    }
+
+    .accent-generator-mixin(@accent_color_mode);
+
+    /* LINK COLOR */
+    /*link color: used to be #758bff;*/
+    .link-generator-mixin(theme) {
+        //@link: @linkThemeColor;
+        //@link: @accent;
+        @link: if((@theme=dark), tint(@accent, 10%), shade(@accent, 10%));
+    }
+
+    .link-generator-mixin(custom) {
+        @link: @link_color;
+    }
+
+    .link-generator-mixin(@link_color_mode);
 
     /* UNAPEC */
+    /*
     @unapecBlue1: #022646;
     @unapecBlue2: #02335e;
     @unapecBlue3: #023f75;
     @unapecBlue4: #0058a6;
+    */
 
 
 
+
+    /* OTHER STUFF */
     /* Transparencies */
 
     @border : rgba(@fAlpha, 0.3);
     @borderL: rgba(@fAlpha, 0.15);
 
     @tableAlt: rgba(0, 0, 0, 10%);
-
-    // TODO: Adapt all colors to light mode (foreground should be darker in light mode)
-    /* Colors */
-    @red     : #f44336;
-    /*500*/
-    @redF1   : #ffcdd2;
-    /*100*/
-    @redF2   : #ef9a9a;
-    /*200*/
-    @redB1   : #b71c1c;
-    /*900*/
-    @redB2   : #d32f2f;
-    /*700*/
-    @orange  : #ff9800;
-    @orangeF1: #ffe0b2;
-    @orangeF2: #ffcc80;
-    @orangeB1: #e65100;
-    @orangeB2: #f57c00;
-
-    @yellow  : #ffeb3b;
-    @yellowF1: #fff9c4;
-    @yellowF2: #fff59d;
-    @yellowB1: #f57f17;
-    @yellowB2: #fbc02d;
-
-    @green  : #4caf50;
-    @greenF1: #c8e6c9;
-    @greenF2: #a5d6a7;
-    @greenB1: #1b5e20;
-    @greenB2: #388e3c;
-
-    @blue  : #2195f3;
-    @blueF1: #bbdefb;
-    @blueF2: #90caf9;
-    @blueB1: #0d47a1;
-    @blueB2: #1976d2;
-
-    @indigo  : #3f51b5;
-    @indigoF1: #c5cae9;
-    @indigoF2: #9fa8da;
-    @indigoB1: #1a237e;
-    @indigoB2: #283593;
-
-    @purple  : #9c27b0;
-    @purpleF1: #e1bee7;
-    @purpleF2: #ce93d8;
-    @purpleB1: #4a148c;
-    @purpleB2: #7b1fa2;
 
     /* Non color variables*/
     @borderRadius  : 10px;
@@ -574,6 +720,10 @@
 
 
     /** DOCK (Left pane) **/
+    .list-group-item.active {
+        background-color: @accent;
+    }
+
     #nav-drawer {
         top        : 39px;
         padding-top: 2em;
@@ -629,7 +779,7 @@
         a,
         a:link,
         a:visited {
-            color: hsla(223, 82%, 50%, .8) !important;
+            color: @link  !important;
         }
 
         background: linear-gradient(0deg, rgba(0, 0, 0, 40%) 10%, rgba(0, 0, 0, 0%)) !important;
@@ -648,7 +798,7 @@
 
     // Header
     .navbar.navbar-expand {
-        background: if(@theme =dark, @unapecBlue2, @back2) !important;
+        background: if(@theme =dark, darken(@accentB2, 7%), @back2) !important;
 
         // Drawer toggle button
         div.d-inline-block button {
@@ -678,7 +828,7 @@
 
     // Replace header logo with footer logo (has white letters)
     .d-md-inline img {
-        background     : if(@theme =dark, url("https://eva.unapec.edu.do/moodle/theme/boost/pix/logo-pie.png"), url("https://eva.unapec.edu.do/moodle/theme/boost/pix/logo_azul.png")) no-repeat;
+        background     : if(@theme=dark, url("https://eva.unapec.edu.do/moodle/theme/boost/pix/logo-pie.png"), url("https://eva.unapec.edu.do/moodle/theme/boost/pix/logo_azul.png")) no-repeat;
         display        : block;
         -moz-box-sizing: border-box;
         box-sizing     : border-box;
@@ -1011,6 +1161,11 @@
                 text-decoration : none;
                 background-color: rgba(@fAlpha, 10%);
             }
+
+            &:active,
+            &.active {
+                background: @accent;
+            }
         }
     }
 
@@ -1037,27 +1192,27 @@
 
     /** CALENDAR **/
     .calendar_event_course {
-        background-color: @blueB2  !important;
+        background-color: @accentB2  !important; //blue
         border-color    : transparent !important;
     }
 
     .calendar_event_site {
-        background-color: @greenB2  !important;
+        background-color: spin(@accentB2, -120) !important; //green
         border-color    : transparent !important;
     }
 
     .calendar_event_category {
-        background-color: @purpleB2  !important;
+        background-color: spin(@accentB2, 60) !important;
         border-color    : transparent !important;
     }
 
     .calendar_event_group {
-        background-color: @yellowB2  !important;
+        background-color: spin(@accentB2, 180) !important;
         border-color    : transparent !important;
     }
 
     .calendar_event_user {
-        background-color: @redB2  !important;
+        background-color: spin(@accentB2, 140) !important;
         border-color    : transparent !important;
     }
 
@@ -1131,7 +1286,7 @@
     // added .path-mod-quiz to be more specific
     .assignfeedback_editpdf_widget .label {
         color           : rgba(@fAlpha, 80%);
-        background-color: fadeout(@blueB1, 40%);
+        background-color: fadeout(@blueB1, 45%);
         border-color    : @borderL;
 
         hr {
@@ -1171,6 +1326,14 @@
         .thispageholder {
             border: 1px solid @border;
         }
+    }
+
+    // On quiz revision of a text field
+    .que.essay .qtype_essay_response.readonly {
+        color        : @text2;
+        background   : rgba(@bAlpha, 20%);
+        border-radius: @borderRadius;
+        padding      : 1em;
     }
 
     // Colors (extracted from original CSS)
@@ -1726,7 +1889,7 @@
         color          : white;
         padding-top    : 30px;
         padding-bottom : 15px;
-        background     : rgba(12, 17, 90, 0.7) !important;
+        background     : fadeout(@accent900, 50%) !important;
         border         : 1px solid rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(7px);
         box-shadow     : 0px 0px 20px rgba(0, 0, 0, 0.5);
@@ -1847,7 +2010,7 @@
             }
 
             &.received {
-                background-color: @back5;
+                background-color: @back4;
                 color           : @text1;
                 margin-right    : auto !important;
 
@@ -1864,7 +2027,7 @@
         }
 
         .clickable:hover {
-            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: @shadowCard;
         }
     }
 
@@ -1872,6 +2035,8 @@
     //########################################################
     /** CHAT PAGE **/
     body#page-message-index {
+        background-color: @back3;
+
         .message-app {
             &.border {
                 background-color: @back2  !important;
@@ -1957,9 +2122,9 @@
         background-color: transparent;
 
         #bg-login {
-            /*filter: blur(5px) brightness(0.35);*/
-            background-image: none;
-            background-color: @back1;
+            filter            : blur(5px) brightness(0.50);
+            /*background-image: none;
+            background-color  : @back1;*/
         }
 
         @blur: 7px;
@@ -1973,7 +2138,7 @@
         }
 
         .navbar {
-            background: @unapecBlue1;
+            background: @accent;
         }
 
         /* Mother force to make the logo darkmode proof :) */
@@ -2047,7 +2212,11 @@
         h2,
         .wpr-login ul.links a,
         #btn-nivel {
-            color: @text3;
+            color: @text2;
+        }
+
+        .form-est-prof h2 {
+            color: white;
         }
 
         .nota-info p,
