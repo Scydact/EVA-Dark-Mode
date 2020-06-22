@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.1.2
+@version        2.1.3
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -493,7 +493,8 @@
 
     // Separators (pretty much a wild border?)
     hr {
-        border-top: 1px solid @borderL
+        //border-top: 1px solid @borderL
+        border-top: none;
     }
 
     // Breadcrumb
@@ -698,8 +699,8 @@
     }
 
     .path-grade-report-user .user-grade.generaltable .levelodd {
-        // TODO: Find usage and place in tables section?
-        background-color: red; //#f9f9f900;
+        // On 'Calificaciones' page of any subject.
+        background-color: transparent; //#f9f9f900;
     }
 
     // TODO: Verify using teacher account!
@@ -1217,29 +1218,33 @@
 
 
     /** CALENDAR **/
-    .calendar_event_course {
-        background-color: @accentB2  !important; //blue
+    .calendar_event_mixin {
+        border-radius   : @borderRadiusUi;
         border-color    : transparent !important;
+    }
+    .calendar_event_course {
+        .calendar_event_mixin();
+        background-color: @accentB2  !important; //blue
     }
 
     .calendar_event_site {
+        .calendar_event_mixin();
         background-color: spin(@accentB2, -120) !important; //green
-        border-color    : transparent !important;
     }
 
     .calendar_event_category {
+        .calendar_event_mixin();
         background-color: spin(@accentB2, 60) !important;
-        border-color    : transparent !important;
     }
 
     .calendar_event_group {
+        .calendar_event_mixin();
         background-color: spin(@accentB2, 180) !important;
-        border-color    : transparent !important;
     }
 
     .calendar_event_user {
+        .calendar_event_mixin();
         background-color: spin(@accentB2, 140) !important;
-        border-color    : transparent !important;
     }
 
     .day>a {
@@ -1764,19 +1769,25 @@
             background-color: darken(@red, 15%);
         }
     }
-
+    
     .modal-footer,
     .moodle-dialogue-base .moodle-dialogue .moodle-dialogue-content .moodle-dialogue-ft {
         border-top: 1px solid @border;
+        
+        a { // Calendar activity popup
+            .GenericInput();
+            text-decoration: none;
+            padding: .25rem .5rem;
+        }
     }
 
     .modal-header,
     .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd,
     .path-mod-assign [data-region="grade-panel"] .popout>.col-md-3 {
         border-bottom: 1px solid @borderL;
-        border-radius: 0 !important;
+        //border-radius: 0 !important; Why was this even added???
     }
-
+    
     // Assignment comments section
     .comment-area .db textarea {
         color: @text1  !important;
