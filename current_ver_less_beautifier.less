@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.1.1
+@version        2.1.2
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -749,10 +749,36 @@
         box-shadow      : @shadowCard;
     }
 
+    /* Linea de tiempo (see on Tablero) */
     .list-group-item {
         background-color: @back3;
         border          : none;
     }
+
+    [data-region="timeline-view"] .list-group-item {
+        &:first-child {
+            border-top-left-radius : @borderRadius;
+            border-top-right-radius: @borderRadius;
+        }
+
+        &:last-child {
+            border-bottom-left-radius : @borderRadius;
+            border-bottom-right-radius: @borderRadius;
+        }
+
+        padding-left : .5rem !important;
+        padding-right: .5rem !important;
+
+        >div>div>h6 {
+            margin-bottom: .25rem !important;
+
+            >a {
+                .GenericInput();
+                padding: .125rem .25rem;
+            }
+        }
+    }
+
 
     .list-group-item-action,
     a.list-group-item-action {
@@ -1257,6 +1283,17 @@
     .bs-popover-top>.arrow::before {
         border: none;
     }
+
+    /* Generic block icon fix */
+    .block .block-controls .dropdown-toggle {
+        color: @text1;
+
+        &:hover {
+            color: @text3;
+        }
+    }
+
+
 
 
     /** PROFILE **/
