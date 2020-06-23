@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.1.3
+@version        2.1.4
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -329,7 +329,7 @@
     @border : rgba(@fAlpha, 0.3);
     @borderL: rgba(@fAlpha, 0.15);
 
-    @tableAlt: rgba(0, 0, 0, 10%);
+    @tableAlt: if(@theme=dark, rgba(0, 0, 0, 12%), rgba(0, 0, 0, 5%));
 
     /* Non color variables*/
     @borderRadius  : 10px;
@@ -507,12 +507,6 @@
         // MIXIN
     }
 
-    // TODO: Verify usage and delete unused. If any of those are valid, use .card() mixin
-    //#page-enrol-users #filterform,
-    //.que .history,
-    //.groupinforbox,
-    //.userprofile .profile_tree section,
-    //.well,
     .card,
     // Usage: on START => Calendario, 
     #region-main {
@@ -1219,9 +1213,10 @@
 
     /** CALENDAR **/
     .calendar_event_mixin {
-        border-radius   : @borderRadiusUi;
-        border-color    : transparent !important;
+        border-radius: @borderRadiusUi;
+        border-color : transparent !important;
     }
+
     .calendar_event_course {
         .calendar_event_mixin();
         background-color: @accentB2  !important; //blue
@@ -1351,6 +1346,7 @@
         // "Pregunta 2; Sin responder aun; Puntaje de 1.00..."
         background-color: rgba(@fAlpha, 15%);
         border-radius   : @borderRadius;
+        border          : none;
 
         .editquestion img,
         .questionflag img,
@@ -1769,15 +1765,16 @@
             background-color: darken(@red, 15%);
         }
     }
-    
+
     .modal-footer,
     .moodle-dialogue-base .moodle-dialogue .moodle-dialogue-content .moodle-dialogue-ft {
         border-top: 1px solid @border;
-        
-        a { // Calendar activity popup
+
+        a {
+            // Calendar activity popup
             .GenericInput();
             text-decoration: none;
-            padding: .25rem .5rem;
+            padding        : .25rem .5rem;
         }
     }
 
@@ -1785,9 +1782,9 @@
     .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd,
     .path-mod-assign [data-region="grade-panel"] .popout>.col-md-3 {
         border-bottom: 1px solid @borderL;
-        //border-radius: 0 !important; Why was this even added???
+        border-radius: 0 !important; //This was added to make borders look good with border-radius.
     }
-    
+
     // Assignment comments section
     .comment-area .db textarea {
         color: @text1  !important;
