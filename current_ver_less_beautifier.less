@@ -3,28 +3,18 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.1.8
+@version        2.1.9
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
 @preprocessor   less
 
-@var select theme_mode 'Color-scheme' {
+@var select theme_mode 'Modo de color principal' {
     'Dark  *': 'dark',
-    'Light  ': 'light',
-    'Custom ': 'custom'
+    'Light  ': 'light'
 }
-@var range back_intensity 'Color: Background base' [15, 0, 90, 1, '%']
-@var range back_increment 'Color: Background increment' [5, 0, 25, 1, '%']
-@var color tone_color 'Color: Base tone' rgb(186,216,255)
 
-@var select link_color_mode 'Link color-scheme' {
-    'Theme  *': 'theme',
-    'Custom ': 'custom'
-}
-@var color link_color 'Color: Link (custom)' #1976d2
-
-@var select accent_color_mode 'Accent color: ' {
+@var select accent_color_mode 'Accent color' {
     'Red   ' : 'red',
     'Orange' : 'orange',
     'Yellow' : 'yellow',
@@ -33,6 +23,18 @@
     'Indigo' : 'indigo',
     'Purple' : 'purple'
 }
+
+@var select navbar_theme 'Color de barra de navegacion' {
+    'Theme  *': 'theme',
+    'Accent  ': 'accent'
+}
+
+@var select link_color_mode 'Color de links' {
+    'Theme  *': 'theme',
+    'Custom ': 'custom'
+}
+@var color link_color 'Color personalizado de links' #1976d2
+
 
 ==/UserStyle== */
 
@@ -74,20 +76,11 @@
         @backIncrement: @back_increment;
         @toneColor    : @tone_color;
         @theme        : if((@backIntensity + @backIncrement > 50), light, dark);
-        // TODO: Themes depending on contrast
     }
 
     .theme-mixin(@theme_mode);
 
     @backColor: hsl(hue(@toneColor), 100%, lightness(@toneColor));
-
-    /*
-    @back1: rgb(28, 32, 38);
-    @back2: rgb(37, 43, 51);
-    @back3: rgb(47, 54, 64);
-    @back4: rgb(56, 65, 77);
-    @back5: rgb(65, 76, 89); //unused
-    */
 
     @back1: multiply(hsv(0, 0, @backIntensity), @backColor);
     @back2: multiply(hsv(0, 0, @backIntensity + @backIncrement), @backColor);
@@ -816,12 +809,27 @@
     }
 
     // Header
+    .navbar-theme-mixin(theme) {
+        //
+        background      : @back2  !important;
+        @navbarText     : @text1;
+        @navbarTextHover: @text3;
+        @logoImage      : if(@theme=dark, url("https://eva.unapec.edu.do/moodle/theme/boost/pix/logo-pie.png"), url("https://eva.unapec.edu.do/moodle/theme/boost/pix/logo_azul.png"))
+    }
+
+    .navbar-theme-mixin(accent) {
+        background      : darken(@accent900, 7%) !important;
+        @navbarText     : white;
+        @navbarTextHover: darken(white, 25%);
+        @logoImage      : url("https://eva.unapec.edu.do/moodle/theme/boost/pix/logo-pie.png");
+    }
+
     .navbar.navbar-expand {
-        background: if(@theme =dark, darken(@accentB2, 7%), @back2) !important;
+        .navbar-theme-mixin(@navbar_theme);
 
         // Drawer toggle button
         div.d-inline-block button {
-            color           : @text1;
+            color           : @navbarText;
             background-color: transparent !important;
             border          : none;
 
@@ -831,7 +839,7 @@
             }
 
             &:active {
-                color: @text2;
+                color: @navbarTextHover;
             }
         }
 
@@ -843,39 +851,50 @@
             left         : 17px;
             top          : 1px;
         }
-    }
 
-    // Replace header logo with footer logo (has white letters)
-    .d-md-inline img {
-        background     : if(@theme=dark, url("https://eva.unapec.edu.do/moodle/theme/boost/pix/logo-pie.png"), url("https://eva.unapec.edu.do/moodle/theme/boost/pix/logo_azul.png")) no-repeat;
-        display        : block;
-        -moz-box-sizing: border-box;
-        box-sizing     : border-box;
-        width          : 180px;
-        height         : 40px;
-        padding-left   : 180px;
-        background-size: contain;
+
+
+        // Replace header logo with footer logo (has white letters)
+        .d-md-inline img {
+            background     : @logoImage no-repeat;
+            display        : block;
+            -moz-box-sizing: border-box;
+            box-sizing     : border-box;
+            width          : 180px;
+            height         : 40px;
+            padding-left   : 180px;
+            background-size: contain;
+        }
+
+
+        // Color for notification bell + messages bubble
+        .navbar-nav .nav-link {
+            color: @navbarText;
+
+            &:hover,
+            &:focus {
+                color: @navbarTextHover;
+            }
+        }
+
+        // User name
+        .action-menu .dropdown-toggle {
+            color: @navbarText;
+        }
+
     }
 
     // Top navbar (Inicio, Biblioteca...)
     .navbar.menu-top {
+        .navbar-theme-mixin(@navbar_theme); //just to get @navbarText in here
+
         >div {
-            background : rgba(0, 0, 0, 0.2) !important;
+            background : rgba(0, 0, 0, 15%) !important;
             font-family: "Roboto Condensed", "Noto Sans", "Roboto", sans-serif;
         }
 
         a.nav-link {
-            color: @text1;
-        }
-    }
-
-    // Color for notification bell + messages bubble
-    .navbar-light .navbar-nav .nav-link {
-        color: @text1;
-
-        &:hover,
-        &:focus {
-            color: @text2;
+            color: @navbarText;
         }
     }
 
