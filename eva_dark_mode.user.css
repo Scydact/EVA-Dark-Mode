@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.1.5
+@version        2.1.6
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -1143,18 +1143,24 @@
 
         &:hover {
             background-color: @back2;
-        }
-
-        &.unread {
-            background-color: @back3;
-
-            &:hover {
-                background-color: fadeout(@accent, 80%);
+            .content-item-footer .timestamp {
+                color: @text4;
             }
         }
 
         .content-item-footer .timestamp {
             color: @text4;
+        }
+        
+        &.unread {
+            background-color: @back3;
+            .content-item-body .notification-message {
+                font-weight: inherit;
+            }
+            &:hover {
+                color: @text1;
+                background-color: @accentB2;
+            }
         }
 
         .view-more {
@@ -1793,12 +1799,20 @@
     // Assignment comments section
     .comment-area .db textarea {
         color: @text1  !important;
+        border: 1px solid @border;
+        padding: 0.5em;
     }
 
-    .comment-ctrl ul.comment-list li[style="color: rgb(0, 102, 238); background-color: rgb(255, 227, 144);"] {
-        // Fresh comment
-        background-color: @yellowB1  !important;
-        color           : @text1  !important;
+    // Fresh comment on assignment
+    .comment-ctrl ul.comment-list li {
+        border-radius   : @borderRadiusUi;
+        &[style="color: rgb(0, 102, 238); background-color: rgb(255, 227, 144);"] {
+            background-color: @yellowB2  !important;
+            color           : @text1  !important;
+            a {
+                color: @accent900;
+            }
+        }
     }
 
 
