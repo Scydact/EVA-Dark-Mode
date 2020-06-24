@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.1.6
+@version        2.1.7
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -1142,6 +1142,7 @@
         padding      : 5px 10px 20px 10px;
 
         &:hover {
+            color: @text2;
             background-color: @back2;
             .content-item-footer .timestamp {
                 color: @text4;
@@ -1158,8 +1159,17 @@
                 font-weight: inherit;
             }
             &:hover {
-                color: @text1;
+                color: @text2;
                 background-color: @accentB2;
+            }
+        }
+        
+        &.selected {
+            background-color: @accentB1;
+            color: @text1;
+            border-color: transparent;
+            .content-item-footer .timestamp {
+                color: @text4;
             }
         }
 
@@ -1168,6 +1178,33 @@
             right : 10px;
         }
 
+    }
+    
+    /* Notification page */
+    .notification-area {
+        border-radius: @borderRadius;
+        overflow: hidden;
+        
+        border: none;
+        background: @back3;
+        
+        .control-area {
+            border-right-color: @border;
+        }
+        .content-area {
+            .header {
+                border-bottom-color: transparent;
+                background: @back4;
+                .timestamp {
+                    color: @text4;
+                }
+            }
+            .footer a{
+                .GenericInput();
+                padding: 0.25rem 0.50rem;
+                text-decoration: none;
+            }
+        }
     }
 
     /* Drop down menus*/
