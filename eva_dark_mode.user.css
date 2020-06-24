@@ -3,15 +3,17 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.1.9
+@version        2.2.0
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
 @preprocessor   less
 
 @var select theme_mode 'Modo de color principal' {
+    'AMOLED ': 'ultradark',
     'Dark  *': 'dark',
-    'Light  ': 'light'
+    'Light  ': 'light',
+    'White  ': 'white',
 }
 
 @var select accent_color_mode 'Accent color' {
@@ -62,6 +64,7 @@
         @backIncrement: 5%;
         @toneColor    : rgb(186, 216, 255);
         @theme        : dark;
+        @cardBorder   : none;
     }
 
     .theme-mixin(light) {
@@ -69,6 +72,23 @@
         @backIncrement: 5%;
         @toneColor    : rgb(255, 255, 255);
         @theme        : light;
+        @cardBorder   : none;
+    }
+
+    .theme-mixin(ultradark) {
+        @backIntensity: 5%;
+        @backIncrement: 5%;
+        @toneColor    : rgb(68, 150, 255);
+        @theme        : dark;
+        @cardBorder   : none;
+    }
+
+    .theme-mixin(white) {
+        @backIntensity: 100%;
+        @backIncrement: 10%;
+        @toneColor    : rgb(255, 255, 255);
+        @theme        : light;
+        @cardBorder   : 1px solid rgba(0, 0, 0, 10%);
     }
 
     .theme-mixin(custom) {
@@ -494,7 +514,7 @@
     .Card() {
         background-color: @back2;
         border-radius   : @borderRadius;
-        border          : none;
+        border          : @cardBorder;
         // color: @text1; Inherited (maybe)
         //box-shadow    : var(--shadowcard)
         // MIXIN
@@ -662,7 +682,7 @@
             }
 
             &:nth-child(even) {
-                background-color: rgba(0, 0, 0, 10%);
+                background-color: @tableAlt;
             }
 
             &.current {
@@ -738,7 +758,7 @@
     /* Linea de tiempo (see on Tablero) */
     .list-group-item {
         background-color: @back3;
-        border          : none;
+        border          : @cardBorder;
     }
 
     [data-region="timeline-view"] .list-group-item {
@@ -775,7 +795,7 @@
             &:hover,
             &:focus {
                 color           : @text1;
-                background-color: @back4;
+                background-color: if(@theme=dark, @back4, rgba(0, 0, 0, 10%));
             }
         }
     }
@@ -889,7 +909,7 @@
         .navbar-theme-mixin(@navbar_theme); //just to get @navbarText in here
 
         >div {
-            background : rgba(0, 0, 0, 15%) !important;
+            background : rgba(0, 0, 0, 7%) !important;
             font-family: "Roboto Condensed", "Noto Sans", "Roboto", sans-serif;
         }
 
@@ -2072,7 +2092,23 @@
         }
 
         .card-header .btn-link:not(.btn-icon) {
-            border-radius: 0;
+            border-radius: @borderRadius;
+
+            border: @cardBorder;
+        }
+
+        .list-group .list-group-item {
+            border: @cardBorder;
+
+            &:first-child {
+                border-top: @cardBorder;
+            }
+
+            &:last-child {
+                border-bottom-left-radius : @borderRadius;
+                border-bottom-right-radius: @borderRadius;
+                border-bottom             : @cardBorder;
+            }
         }
 
         .btn-link:not(.btn-icon) {
@@ -2126,7 +2162,8 @@
         // Chat bubbles
 
         .message {
-            max-width: 80%;
+            max-width : 80%;
+            box-shadow: @shadowCard;
 
             &.send {
                 background-color: @accentB2;
@@ -2267,7 +2304,8 @@
         }
 
         .navbar {
-            background: @accent;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 60%) 0%, rgba(0, 0, 0, 0%));
+            box-shadow: none;
         }
 
         /* Mother force to make the logo darkmode proof :) */
@@ -2290,52 +2328,100 @@
         }
 
         /* Block pieces */
-        @media (min-width: 769px) {
-            .botones {
-                background: transparent;
-            }
-        }
-
         .botones li {
             backdrop-filter: blur(@blur);
         }
 
-        .botones .cal-acad {
-            background-color: rgba(@bAlpha, 0.3);
+        .botones {
+            .cal-acad {
+                background-color: rgba(@bAlpha, 0.2);
+            }
+
+            .ayuda {
+                background-color: rgba(@bAlpha, 0.3);
+            }
+
+            .preg-frec {
+                background-color: rgba(@bAlpha, 0.4);
+            }
+
+            .wifi {
+                background-color: rgba(@bAlpha, 0.45);
+            }
+
+            .aulatec {
+                background-color: rgba(@bAlpha, 0.5);
+            }
         }
 
-        .botones .ayuda {
-            background-color: rgba(@bAlpha, 0.35);
-        }
 
-        .botones .preg-frec {
-            background-color: rgba(@bAlpha, 0.4);
-        }
 
-        .botones .wifi {
-            background-color: rgba(@bAlpha, 0.45);
-        }
+        @media (min-width: 768px) {
+            .botones {
+                background: @back2;
 
-        .botones .aulatec {
-            background-color: rgba(@bAlpha, 0.5);
+                a:link,
+                a:hover,
+                a:visited,
+                a:active {
+                    color: @text1;
+                }
+
+
+                .cal-acad,
+                .ayuda,
+                .preg-frec,
+                .wifi,
+                .aulatec {
+                    background-color: transparent;
+                }
+
+            }
         }
 
         .botones .aulatec a {
-            filter: brightness(3) saturate(2) hue-rotate(40deg);
+            filter: if(@theme=dark, brightness(3) saturate(2) hue-rotate(40deg), none);
         }
 
-        .info-eva .texto {
-            background     : rgba(0, 44, 73, 0.6);
-            backdrop-filter: blur(@blur);
-            padding-top    : 30px;
+
+
+        .info-eva {
+            .texto {
+                background     : #0058a6;
+                backdrop-filter: blur(@blur);
+                padding-top    : 30px;
+            }
         }
 
         .ejmpl {
-            background: @back4;
-        }
+            background   : @back4;
+            border-radius: 100rem;
 
-        .ejmpl strong {
-            color: #0087ff;
+            position   : relative;
+            bottom     : auto;
+            overflow   : hidden;
+            width      : 100%;
+            margin-top : 1rem;
+            margin-left: auto;
+
+            display        : flex;
+            justify-content: center;
+
+            p {
+                float       : inherit;
+                padding-left: inherit;
+                padding     : 0rem 2rem;
+                width       : auto;
+                border      : none;
+            }
+
+            p+p {
+                border: none;
+            }
+
+            strong {
+                color: #0087ff;
+            }
         }
 
         h2,
@@ -2344,13 +2430,23 @@
             color: @text2;
         }
 
-        .form-est-prof h2 {
-            color: white;
+        .form-est-prof {
+            border-radius: @borderRadius;
+            padding      : 15px 25px 20px;
+
+            span.pestania {
+                display: none;
+            }
+
+            h2 {
+                color: white;
+            }
         }
 
         .nota-info p,
         #btn-nivel {
             background-color: @back4;
+            border          : @cardBorder;
         }
 
         .wpr-login {
@@ -2375,7 +2471,7 @@
 
                 td,
                 th {
-                    border          : 2px dotted @back2;
+                    border          : 2px dotted rgba(@fAlpha, 10%);
                     background-color: @back3;
                     padding         : 5px;
                 }
@@ -2595,5 +2691,11 @@ url-prefix("https://eva.unapec.edu.do/moodle/custom/paginas/") {
         max-width   : 70rem;
         margin-left : auto;
         margin-right: auto;
+    }
+}
+
+@-moz-document url-prefix("https://eva.unapec.edu.do/moodle/login/") {
+    html {
+        background: black;
     }
 }
