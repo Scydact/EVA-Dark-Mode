@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.2.0
+@version        2.2.1
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -359,7 +359,7 @@
         border          : 1px solid @text2;
         border-radius   : @borderRadiusUi;
 
-        &:not(:disabled):not(.disabled) {
+        &:not(:disabled):not(.disabled):not([readonly]) {
 
             &:active,
             &:hover,
@@ -384,7 +384,7 @@
         border-color    : @borderColor;
         color           : @text1;
 
-        &:not(:disabled):not(.disabled) {
+        &:not(:disabled):not(.disabled):not([readonly]) {
 
             &:hover,
             &:focus {
@@ -396,7 +396,8 @@
         }
 
         &:disabled,
-        &.disabled {
+        &.disabled,
+        &[readonly] {
             opacity         : 100%;
             background-color: desaturate(@color, 50%);
             color           : fadeout(@text1, 30%);
@@ -934,6 +935,12 @@
     .custom-select,
     .form-control {
         .GenericInput();
+    }
+
+    .form-control:disabled,
+    .form-control[readonly] {
+        background-color: @back2;
+        color           : fadeout(@text1, 50%);
     }
 
 
