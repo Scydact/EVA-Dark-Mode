@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.2.2
+@version        2.2.3
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -1523,15 +1523,15 @@
     /* Not graded homeworks */
     .path-mod-assign td.submissionnotgraded,
     .path-mod-assign div.submissionnotgraded {
-        color           : @text2;
-        background-color: @back2;
+        color           : @text2  !important;
+        background-color: @back2  !important;
     }
 
     .path-mod-assign td.submissionstatus,
     .path-mod-assign div.submissionstatus,
     .path-mod-assign a:link.submissionstatus {
-        color           : @text1;
-        background-color: rgba(@bAlpha, 20%);
+        color           : @text1  !important;
+        background-color: rgba(@bAlpha, 20%) !important;
     }
 
     /* Green */
@@ -1542,8 +1542,8 @@
     .path-mod-assign div.submissiongraded,
     .path-mod-assign td.earlysubmission,
     .path-mod-assign div.earlysubmission {
-        color           : @text1;
-        background-color: @green;
+        color           : @text1  !important;
+        background-color: @green  !important;
     }
 
     /* Red */
@@ -1559,8 +1559,8 @@
     #plugins-control-panel .pluginupdateinfo.maturity50,
     #adminsettings span.error,
     #page-backup-restore .filealiasesfailures {
-        color           : @text1;
-        background-color: @red;
+        color           : @text1  !important;
+        background-color: @red  !important;
     }
 
     .alert-danger a,
