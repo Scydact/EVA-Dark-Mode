@@ -1,1 +1,105 @@
-<h1>Lorem</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVA Dark Mode</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id=home class='title full-page'>
+        <h1>EVA Dark Mode™</h1>
+        <h2>Modo oscuro para el EVA</h2>
+
+        <a class=subtleLink href="#demo">Ver demo</a>
+
+        <a class=next href="#paso1">
+            <div>¿Cómo instalar?</div>
+            <div style="font-size: 5rem;">↓</div>
+        </a>
+    </div>
+
+    <div id=paso1 class='sub-page full-page'>
+        <div class="sub-page-wrapper">
+            <h1><span class=small>Paso 1:</span> Descargar Stylus™</h1>
+            <p>Stylus es una extension que permite instalar y manejar temas a diferentes paginas web dentro del
+                navegador.</p>
+            <p>Ademas de el <em>EVA Dark Mode™</em>, existen tambien temas para otros sitios populares, como Facebook™,
+                Google™, Youtube™, entre otros...</p>
+            <p>Si se descarga un tema, este solo se aplica a un sitio web específico (y no a todos los sitios).</p>
+
+            <div class=btnFlex>
+                <a target="_blank"
+                    href="https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne">Stylus para
+                    Chrome</a>
+                <a target="_blank" href="https://addons.mozilla.org/en-US/firefox/addon/styl-us/">Stylus para
+                    Firefox</a>
+            </div>
+
+            <a class=next href="#paso2">
+                <div>Siguiente paso...</div>
+                <div style="font-size: 5rem;">↓</div>
+            </a>
+        </div>
+    </div>
+
+    <div id=paso2 class="sub-page full-page">
+        <div class="sub-page-wrapper">
+            <h1><span class=small>Paso 2:</span> Instalar EVA Dark Mode™</h1>
+            <p>Click al boton de abajo para instalar el estilo. Se debe tener la extensión Stylus™ agregada en el
+                navegador, o sino solo se mostrará una página con texto.</p>
+            <div class=btnFlex>
+                <a target="_blank"
+                    href="https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css">Instalar
+                    EVA Dark Mode™</a>
+            </div>
+
+            <p>Si la extensión está correctamente agregada, cuand se abra el enlace de arriba solo es necesario darle
+                click a <em class=installBtn>Install style</em>.</p>
+            <img class='contain darken' src="../desc_img/install_01.png" alt="Boton para instalar.">
+            <a class=next href="#demo">
+                <div>¡Listo!</div>
+                <div style="font-size: 5rem;">↓</div>
+            </a>
+        </div>
+    </div>
+
+    <div id="demo" class="sub-page full-page">
+        <div class="sub-page-wrapper display-block">
+            <h1>Demo</h1>
+
+            <h2>Modo oscuro (normal)</h2>
+            <img class=contain src="../desc_img/dark_demo.png">
+            <h2>Pantalla de acceso</h2>
+            <img class=contain src="../desc_img/login_demo.png">
+            <h2>Pantalla de Tarea</h2>
+            <img class=contain src="../desc_img/tarea_demo.png">
+
+            <h2>Como cambiar a otros temas (en prueba)</h2>
+            <p>Para cambiar de colores (actualmente en prueba), primero abrir el menu de la extensión de Stylus. Luego darle click al boton con el engranaje al lado de <em>EVA Dark Mode™</em>.</p>
+            <img class=contain src="../desc_img/config_01.png">
+            <img class=contain src="../desc_img/config_02.png">
+
+            <h2>Modo AMOLED (más oscuro)</h2>
+            <img class=contain src="../desc_img/amoled_demo.png">
+
+            <h2>Modo Claro</h2>
+            <img class=contain src="../desc_img/light_demo.png">
+
+            <h2>Modo Blanco</h2>
+            <img class=contain src="../desc_img/white_demo.png">            
+        </div>
+        <a id=backHomeLink href="#home">↑</a>
+    </div>
+
+    <footer>
+        EVA Dark Mode by ScyDact
+        <br>
+        Copyleft 2020
+    </footer>
+</body>
+
+</html>
