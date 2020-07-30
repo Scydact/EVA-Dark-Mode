@@ -1,4 +1,7 @@
-# EVA-Dark-Mode
+# EVA Dark Mode™
+
+[Ver página oficial](https://scyllarusdactyl.github.io/EVA-Dark-Mode/)
+
 
 ## Como instalar:
 
@@ -15,21 +18,21 @@
 ## Ejemplos
 
 ### Login
-![Preview login](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/desc_img/login_demo.png)
+![Preview login](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/docs/img/login_demo.png)
 
 ### Modo oscuro (default)
-![Preview Dark mode](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/desc_img/dark_demo.png)
+![Preview Dark mode](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/docs/img/dark_demo.png)
 
 ### Entrega asignación
-![Preview tarea](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/desc_img/tarea_demo.png)
+![Preview tarea](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/docs/img/tarea_demo.png)
 
 ### Otros subtemas (en prueba)
 #### Light
-![Preview Light mode](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/desc_img/light_demo.png)
+![Preview Light mode](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/docs/img/light_demo.png)
 
 #### White
-![Preview White mode](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/desc_img/white_demo.png)
+![Preview White mode](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/docs/img/white_demo.png)
 
 #### AMOLED
-![Preview AMOLED mode](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/desc_img/amoled_demo.png)
+![Preview AMOLED mode](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/docs/img/amoled_demo.png)
 
