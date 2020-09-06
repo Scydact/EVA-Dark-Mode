@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.2.3
+@version        2.2.4
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -1127,16 +1127,6 @@
 
 
     /** OTHER UI ELEMENTS **/
-
-    // Transparent images inside a course (+ rounded borders)
-    #region-main .contentwithoutlink img {
-        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVDhPY/zw4cN/BiIAPz8/w79//6A83IAJSlMNDDMDmZiYCGOoWqqBUQMpB4z/gQDKxgs+fvwIZeEHTKDsRAiTAkZjmXIwaiClgIEBAHJwKOxI6gmIAAAAAElFTkSuQmCC");
-        color           : darkgray;
-        border-radius   : @borderRadiusUi;
-        margin          : 2px;
-    }
-
-
 
     /* Notifications menu */
     .popover-region-toggle::before,
@@ -2681,6 +2671,35 @@
 
         header#page-header {
             display: none;
+        }
+    }
+
+    //########################################################
+
+    /** FORCES EN CURSOS**/
+    #page-course-view-weeks {
+
+        // Transparent images inside a course (+ rounded borders)
+        #region-main .contentwithoutlink img {
+            //background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVDhPY/zw4cN/BiIAPz8/w79//6A83IAJSlMNDDMDmZiYCGOoWqqBUQMpB4z/gQDKxgs+fvwIZeEHTKDsRAiTAkZjmXIwaiClgIEBAHJwKOxI6gmIAAAAAElFTkSuQmCC");
+            color        : darkgray;
+            border-radius: @borderRadiusUi;
+            margin       : 2px;
+        }
+
+        .resourcelinkdetails {
+            color: @text4;
+        }
+
+        // Some manually set headings
+        span {
+
+            &[style="color: #333333;"],
+            &[style="font-family: tahoma, arial, helvetica, sans-serif; font-size: medium; color: rgb(51, 51, 51);"],
+            &[style="font-family: tahoma, arial, helvetica, sans-serif; font-size: medium; color: #333333;"],
+            &[style="color: rgb(51, 51, 51);"] {
+                color: @text3  !important;
+            }
         }
     }
 
