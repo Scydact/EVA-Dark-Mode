@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.3.0
+@version        2.3.1
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -2065,7 +2065,7 @@
 
     // Usable drawer width
     [data-region="right-hand-drawer"].drawer {
-        top   : 88px;
+        //top   : 88px; fixed by EVA team at some point?
         bottom: 0px;
         height: auto;
         width : 400px;
@@ -2103,8 +2103,12 @@
 
         .card-header .btn-link:not(.btn-icon) {
             border-radius: @borderRadius;
+            border       : @cardBorder;
 
-            border: @cardBorder;
+            &:not(.collapsed) {
+                border-bottom-left-radius : 0;
+                border-bottom-right-radius: 0;
+            }
         }
 
         .list-group .list-group-item {
@@ -2118,6 +2122,13 @@
                 border-bottom-left-radius : @borderRadius;
                 border-bottom-right-radius: @borderRadius;
                 border-bottom             : @cardBorder;
+            }
+
+            img {
+                // images that fail to load dont affect the chat layout.
+                background: rgba(@bAlpha, 0.2);
+                width     : 38px;
+                color     : transparent;
             }
         }
 
