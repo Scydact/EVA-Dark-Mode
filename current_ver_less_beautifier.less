@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.2.5
+@version        2.3.0
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -36,6 +36,8 @@
     'Custom ': 'custom'
 }
 @var color link_color 'Color personalizado de links' #1976d2
+
+@var checkbox try_fix_unapec_template 'Intentar arreglar los titulos de la plantilla forzada por la administracion del EVA ' 1
 
 
 ==/UserStyle== */
@@ -315,7 +317,7 @@
     .link-generator-mixin(theme) {
         //@link: @linkThemeColor;
         //@link: @accent;
-        @link: if((@theme=dark), tint(@accent, 10%), shade(@accent, 10%));
+        @link: if((@theme=dark), tint(@accent, 10%), shade(@accent, 17%));
     }
 
     .link-generator-mixin(custom) {
@@ -350,7 +352,8 @@
     /* General MIXINS */
     .GenericInput() {
         // MIXIN
-        background-color: @back1;
+        //background-color: @back1;
+        background-color: rgba(@bAlpha, 0.3);
         color           : @text2;
         border          : 1px solid @text2;
         border-radius   : @borderRadiusUi;
@@ -360,7 +363,8 @@
             &:active,
             &:hover,
             &:focus {
-                background-color: darken(@back1, 5%);
+                //background-color: darken(@back1, 5%);
+                background-color: rgba(@bAlpha, 0.5);
                 color           : @text1;
             }
         }
@@ -373,7 +377,7 @@
         }
     }
 
-    .ColorButton(@color: @accent, @borderColor: transparent) {
+    .ColorButton(@color: @accentB1, @borderColor: transparent) {
         // MIXIN
         .GenericInput();
         background-color: @color;
@@ -385,7 +389,7 @@
             &:hover,
             &:focus {
                 // TODO: Make text depend on color luminosity (light red + white text looks bad)
-                background-color: darken(@color, 10%);
+                background-color: lighten(@color, 10%);
                 color           : @text1;
                 border-color    : darken(@borderColor, 10%);
             }
@@ -501,9 +505,10 @@
     }
 
     // Separators (pretty much a wild border?)
+    // ignore these, they are sometimes used to decorate headings.
     hr {
         //border-top: 1px solid @borderL
-        border-top: none;
+        //border-top: none;
     }
 
     // Breadcrumb
@@ -1299,33 +1304,34 @@
 
     /** CALENDAR **/
     .calendar_event_mixin {
-        border-radius: @borderRadiusUi;
-        border-color : transparent !important;
+        //border-radius: @borderRadiusUi;
+        border-color: transparent !important;
+        box-shadow  : 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
     }
 
     .calendar_event_course {
         .calendar_event_mixin();
-        background-color: @accentB2  !important; //blue
+        background-color: @accentB1  !important; //blue
     }
 
     .calendar_event_site {
         .calendar_event_mixin();
-        background-color: spin(@accentB2, -120) !important; //green
+        background-color: spin(@accentB1, -120) !important; //green
     }
 
     .calendar_event_category {
         .calendar_event_mixin();
-        background-color: spin(@accentB2, 60) !important;
+        background-color: spin(@accentB1, 60) !important;
     }
 
     .calendar_event_group {
         .calendar_event_mixin();
-        background-color: spin(@accentB2, 180) !important;
+        background-color: spin(@accentB1, 180) !important;
     }
 
     .calendar_event_user {
         .calendar_event_mixin();
-        background-color: spin(@accentB2, 140) !important;
+        background-color: spin(@accentB1, 140) !important;
     }
 
     .day>a {
@@ -1947,13 +1953,17 @@
         }
 
         >[alert="card-body"] {
-            background-color: @accent  !important;
+            background-color: @accentB2  !important;
             color           : @text1  !important;
         }
 
         >div:not(.card-body):not([alert="card-body"]) {
             background: @blueB1  !important;
-            color     : @blueF1  !important;
+            color     : rgba(@fAlpha, 0.7) !important;
+
+            &[style^="background: #d0e4afbd; display: block; color: #719834;"] {
+                background: @greenB1  !important;
+            }
         }
 
     }
@@ -1994,10 +2004,14 @@
 
     }
 
-    .editor_atto_content_wrap .editor_atto_content {
-        border-top-left-radius : 0;
-        border-top-right-radius: 0;
-        border-color           : transparent;
+    .editor_atto_content_wrap {
+        background-color: @back3;
+
+        .editor_atto_content {
+            border-top-left-radius : 0;
+            border-top-right-radius: 0;
+            border-color           : transparent;
+        }
     }
 
     .editor_atto_content_wrap,
@@ -2006,6 +2020,12 @@
         border-top                : none;
         border-bottom-left-radius : @borderRadiusUi;
         border-bottom-right-radius: @borderRadiusUi;
+    }
+
+    .editor_atto_notification .atto_info {
+        background: @accentB2;
+        border    : 1px solid @borderL;
+        border-top: none;
     }
 
 
@@ -2675,29 +2695,45 @@
         // Transparent images inside a course (+ rounded borders)
         #region-main .contentwithoutlink img {
             //background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAABPSURBVDhPY/zw4cN/BiIAPz8/w79//6A83IAJSlMNDDMDmZiYCGOoWqqBUQMpB4z/gQDKxgs+fvwIZeEHTKDsRAiTAkZjmXIwaiClgIEBAHJwKOxI6gmIAAAAAElFTkSuQmCC");
-            color        : darkgray;
-            border-radius: @borderRadiusUi;
-            margin       : 2px;
+            color          : darkgray;
+            border-radius  : @borderRadiusUi;
+            //margin       : 2px;
         }
 
         .resourcelinkdetails {
             color: @text4;
         }
 
-        // Some manually set headings
-        span {
+        .fixEnforcedTemplate(@tryFix) when (@tryFix =1) {
 
-            &[style="color: #333333;"],
-            &[style="font-family: tahoma, arial, helvetica, sans-serif; font-size: medium; color: rgb(51, 51, 51);"],
-            &[style="font-family: tahoma, arial, helvetica, sans-serif; font-size: medium; color: #333333;"],
-            &[style="color: rgb(51, 51, 51);"] {
-                color: @text3  !important;
-            }
+            // Some manually set headings
+            span {
 
-            &[style="background-color: rgb(255, 255, 255);"] {
-                background-color: rgba(@bAlpha, 0.2) !important;
+                &[style^="color: #333333;"],
+                &[style^="color: rgb(51, 51, 51);"],
+                //&[style="font-family: tahoma, arial, helvetica, sans-serif; font-size: medium; color: rgb(51, 51, 51);"],
+                &[style*=" color: rgb(51, 51, 51);"],
+                // can be mistaken for background-color
+                &[style*=" color: #333333;"] {
+                    color      : @text3  !important;
+                    font-family: "Noto Sans", sans-serif !important;
+                }
+
+                &[style="background-color: rgb(255, 255, 255);"] {
+                    background-color: rgba(@bAlpha, 0.2) !important;
+                }
             }
         }
+
+        .fixEnforcedTemplate(@try_fix_unapec_template);
+
+    }
+
+    //########################################################
+
+    /** FORCES PARA CORRECION DE TAREAS (PROFS) **/
+    #page-mod-assign-grader {
+        background: @back3;
     }
 
 }
