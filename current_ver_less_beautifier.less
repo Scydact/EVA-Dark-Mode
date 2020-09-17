@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.3.1
+@version        2.3.2
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -1278,6 +1278,11 @@
             &.active {
                 background: @accent;
             }
+
+            a {
+                color          : @text2;
+                text-decoration: none;
+            }
         }
     }
 
@@ -1427,6 +1432,11 @@
         }
 
 
+    }
+
+    // round borders of all alerts
+    .alert {
+        border-radius: @borderRadius;
     }
 
     // End of extracts from original css
@@ -1915,13 +1925,40 @@
     // Little calendar widget (on stats for teachers)
     .nav-tabs .nav-link.active,
     .nav-tabs .nav-item.show .nav-link {
-        color           : @text1;
-        background-color: @accent;
+        .ColorButton();
+        border-bottom-left-radius : 0;
+        border-bottom-right-radius: 0;
     }
 
-    .nav-tabs .nav-link {
-        border-top-left-radius : @borderRadiusUi;
-        border-top-right-radius: @borderRadiusUi;
+    .nav-tabs {
+        border-bottom: 1px solid @borderL;
+
+        .nav-link {
+            .ColorButton(@back1);
+            border-bottom-left-radius : 0;
+            border-bottom-right-radius: 0;
+
+            margin    : 0 .1rem;
+            box-shadow: 0px -1px 2px 0 rgba(0, 0, 0, 0.15);
+        }
+    }
+
+    .block_teacher_stats #thisWeek>div:first-of-type {
+        border       : 1px solid @borderL  !important;
+        border-radius: @borderRadiusUi;
+
+        >h2 {
+            border-top-left-radius : @borderRadiusUi;
+            border-top-right-radius: @borderRadiusUi;
+            background             : @back3  !important;
+            color                  : @text3  !important;
+        }
+
+        >div {
+            border-bottom-left-radius : @borderRadiusUi;
+            border-bottom-right-radius: @borderRadiusUi;
+            background                : @back4;
+        }
     }
 
 
@@ -2308,6 +2345,13 @@
     #page-login-index {
         background-color: transparent;
 
+        .btn-login,
+        #btn-nivel {
+            &:hover {
+                filter: brightness(0.95);
+            }
+        }
+
         #bg-login {
             filter            : blur(5px) brightness(0.50);
             /*background-image: none;
@@ -2379,7 +2423,8 @@
 
         @media (min-width: 768px) {
             .botones {
-                background: @back2;
+                background   : @back2;
+                border-radius: @borderRadiusUi;
 
                 a:link,
                 a:hover,
@@ -2395,7 +2440,14 @@
                 .wifi,
                 .aulatec {
                     background-color: transparent;
+
+                    &:hover {
+                        background-color: rgba(@fAlpha, 0.15)
+                    }
                 }
+
+
+                backdrop-filter: blur(0);
 
             }
         }
@@ -2408,9 +2460,7 @@
 
         .info-eva {
             .texto {
-                background     : #0058a6;
-                backdrop-filter: blur(@blur);
-                padding-top    : 30px;
+                background: #0058a6;
             }
         }
 
