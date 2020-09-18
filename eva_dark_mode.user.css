@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.3.3
+@version        2.3.4
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -42,6 +42,7 @@
 
 ==/UserStyle== */
 
+
 @-moz-document url-prefix("https://eva.unapec.edu.do/moodle/") {
 
     /* VARIABLES AND DEFAULTS */
@@ -57,7 +58,7 @@
 
     @font-face {
         font-family: "Noto Sans";
-        src        : url("https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts@master/unhinted/NotoSans/NotoSans-Regular.ttf");
+        src        : url("https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts@master/unhinted/variable-ttf/NotoSans-VF.ttf");
     }
 
     /* PALLETE */
