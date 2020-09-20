@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.3.7
+@version        2.3.8
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -660,8 +660,13 @@
     /** Inside a course **/
     // TODO: Move to its own moz-document
     .course-content {
-        >ul>li.section.main {
-            border-bottom: 4px dashed @borderL;
+
+        // Fix for ugly empty courses
+        >ul.topics>li.section,
+        ul.weeks li.section {
+            margin-top   : 0;
+            padding-top  : 2rem;
+            border-bottom: 4px dashed @border;
 
             h3.sectionname {
                 color: @text2;
@@ -678,13 +683,25 @@
                     border-left: 5px solid @accent;
                 }
             }
+
+            &.section-summary {
+                .Card();
+                background: @back3;
+                margin    : 1rem 0;
+                padding   : 1rem .5rem .5rem;
+            }
         }
 
-        // Fix for ugly empty courses
-        >ul.topics>li.section,
-        ul.weeks li.section {
-            margin-top : 0;
-            padding-top: 2rem;
+        // Section 
+        .single-section {
+            border-top : 4px dashed @border; // Copied from above
+            padding-top: 1em;
+
+            .section-navigation {
+                .Card();
+                background: @back3;
+                padding   : 1.5em 1em;
+            }
         }
     }
 
