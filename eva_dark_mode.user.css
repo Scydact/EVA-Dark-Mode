@@ -41,25 +41,9 @@
 
 
 ==/UserStyle== */
-
+@import (css) url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Roboto&family=Roboto+Condensed&display=swap');
 
 @-moz-document url-prefix("https://eva.unapec.edu.do/moodle/") {
-
-    /* VARIABLES AND DEFAULTS */
-    @font-face {
-        font-family: "Roboto";
-        src        : url("https://cdn.jsdelivr.net/gh/google/roboto@master/src/hinted/Roboto-Regular.ttf");
-    }
-
-    @font-face {
-        font-family: "Roboto Condensed";
-        src        : url("https://cdn.jsdelivr.net/gh/google/roboto@master/src/hinted/RobotoCondensed-Regular.ttf");
-    }
-
-    @font-face {
-        font-family: "Noto Sans";
-        src        : url("https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts@master/unhinted/variable-ttf/NotoSans-VF.ttf");
-    }
 
     /* PALLETE */
     .theme-mixin(dark) {
@@ -463,7 +447,7 @@
     h1,
     h2,
     h3 {
-        font-family: "Noto Sans", sans-serif;
+        font-family: 'Noto Sans', sans-serif;
     }
 
     .BaseLevel() {
@@ -1816,6 +1800,11 @@
         padding         : 7px;
     }
 
+    .modal-content,
+    .moodle-dialogue-base .moodle-dialogue-wrap.moodle-dialogue-content {
+        border: @cardBorder;
+    }
+
     [data-region="confirm-dialogue"] {
         background-color: @back2  !important;
     }
@@ -1831,8 +1820,9 @@
     [data-region="confirm-dialogue-container"] {
         /* Blur the background*/
         opacity         : 1;
-        background-color: transparent;
-        backdrop-filter : blur(10px);
+        background      : transparent;
+        background-color: rgba(0, 0, 0, 0.7);
+        backdrop-filter : blur(5px);
     }
 
     .close,
