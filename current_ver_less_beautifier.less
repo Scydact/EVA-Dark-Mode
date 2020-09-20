@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.3.5
+@version        2.3.6
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -661,21 +661,21 @@
     // TODO: Move to its own moz-document
     .course-content {
         >ul>li.section.main {
-            border-bottom: 1px solid @borderL;
+            border-bottom: 4px dashed @borderL;
 
             h3.sectionname {
                 color: @text2;
             }
 
             &:nth-child(even) {
-                background-color: @tableAlt;
+                background-color: transparent; //@tableAlt;
             }
 
             &.current {
-                background-color: @back3;
+                background-color: transparent; //@back3;
 
                 &::before {
-                    border-left: 4px solid @accent;
+                    border-left: 5px solid @accent;
                 }
             }
         }
@@ -683,10 +683,13 @@
         // Fix for ugly empty courses
         >ul.topics>li.section,
         ul.weeks li.section {
-            margin-top    : 0;
-            padding-top   : 2rem;
-            padding-bottom: 2rem;
+            margin-top : 0;
+            padding-top: 2rem;
         }
+    }
+
+    .badge {
+        border-radius: @borderRadiusUi;
     }
 
     .path-grade-report-user .user-grade.generaltable .levelodd {
@@ -2763,16 +2766,33 @@
 
                 &[style^="color: #333333;"],
                 &[style^="color: rgb(51, 51, 51);"],
-                //&[style="font-family: tahoma, arial, helvetica, sans-serif; font-size: medium; color: rgb(51, 51, 51);"],
                 &[style*=" color: rgb(51, 51, 51);"],
                 // can be mistaken for background-color
                 &[style*=" color: #333333;"] {
-                    color      : @text3  !important;
+                    color      : @text2  !important;
                     font-family: "Noto Sans", sans-serif !important;
                 }
 
                 &[style="background-color: rgb(255, 255, 255);"] {
                     background-color: rgba(@bAlpha, 0.2) !important;
+                }
+
+                &[style="font-family: tahoma, arial, helvetica, sans-serif; font-size: medium;"] {
+                    font-family: "Noto Sans", sans-serif !important;
+                }
+            }
+
+            // Fix icon contrast on dark mode
+            img {
+
+                &[src$="/academic%20%281%29.png"],
+                &[src$="/open-menu.png"],
+                &[src$="/books-stack-of-three.png"],
+                &[src$="/test.png"],
+                &[src$="/calendar.png"],
+                &[src$="/video-conference%20%281%29.png"],
+                &[src$="/diana.png"] {
+                    filter: if(@theme=dark, brightness(150%), brightness(125%));
                 }
             }
         }
