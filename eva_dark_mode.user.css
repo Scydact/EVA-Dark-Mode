@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.3.8
+@version        2.3.9
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -41,9 +41,22 @@
 
 
 ==/UserStyle== */
-@import (css) url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Roboto&family=Roboto+Condensed&display=swap');
+@-moz-document domain("eva.unapec.edu.do") {
 
-@-moz-document url-prefix("https://eva.unapec.edu.do/moodle/") {
+    @font-face {
+        font-family: "CustomFont Headings";
+        src        : url("https://scyllarusdactyl.github.io/EVA-Dark-Mode/fonts/NotoSans-Regular.ttf");
+    }
+
+    @font-face {
+        font-family: "CustomFont Regular";
+        src        : url("https://scyllarusdactyl.github.io/EVA-Dark-Mode/fonts/Roboto-Regular.ttf");
+    }
+
+    @font-face {
+        font-family: "CustomFont Condensed";
+        src        : url("https://scyllarusdactyl.github.io/EVA-Dark-Mode/fonts/RobotoCondensed-Regular.ttf");
+    }
 
     /* PALLETE */
     .theme-mixin(dark) {
@@ -441,13 +454,13 @@
 
     /** MAIN BODY **/
     body {
-        font-family: "Roboto", sans-serif;
+        font-family: "CustomFont Regular", sans-serif;
     }
 
     h1,
     h2,
     h3 {
-        font-family: 'Noto Sans', sans-serif;
+        font-family: 'CustomFont Headings', sans-serif;
     }
 
     .BaseLevel() {
@@ -916,7 +929,7 @@
 
         >div {
             background : rgba(0, 0, 0, 7%) !important;
-            font-family: "Roboto Condensed", "Noto Sans", "Roboto", sans-serif;
+            font-family: "CustomFont Condensed", "CustomFont Headings", "CustomFont Regular", sans-serif;
         }
 
         a.nav-link {
@@ -1173,7 +1186,7 @@
         border-top-left-radius : 0px;
         border-top-right-radius: 0px;
         color                  : @text3;
-        font-family            : "Noto Sans", sans-serif;
+        font-family            : "CustomFont Headings", sans-serif;
     }
 
     .content-item-container {
@@ -2783,7 +2796,7 @@
                 // can be mistaken for background-color
                 &[style*=" color: #333333;"] {
                     color      : @text2  !important;
-                    font-family: "Noto Sans", sans-serif !important;
+                    font-family: "CustomFont Headings", sans-serif !important;
                 }
 
                 &[style="background-color: rgb(255, 255, 255);"] {
@@ -2791,7 +2804,7 @@
                 }
 
                 &[style="font-family: tahoma, arial, helvetica, sans-serif; font-size: medium;"] {
-                    font-family: "Noto Sans", sans-serif !important;
+                    font-family: "CustomFont Headings", sans-serif !important;
                 }
             }
 
@@ -2821,25 +2834,25 @@
         background: @back3;
     }
 
-}
+    //########################################################
 
+    /** Limit max width on single pages **/
+    body.path-custom-paginas,
+    body.path-user,
+    body.path-mod-assign {
 
-
-
-@-moz-document url-prefix("https://eva.unapec.edu.do/moodle/mod/assign/"),
-url-prefix("https://eva.unapec.edu.do/moodle/user/"),
-url-prefix("https://eva.unapec.edu.do/moodle/custom/paginas/") {
-
-    /** Outer div of single card pages **/
-    #page-wrapper #page {
-        max-width   : 70rem;
-        margin-left : auto;
-        margin-right: auto;
+        /** Outer div of single card pages **/
+        #page-wrapper #page {
+            max-width   : 70rem;
+            margin-left : auto;
+            margin-right: auto;
+        }
     }
-}
 
-@-moz-document url-prefix("https://eva.unapec.edu.do/moodle/login/") {
-    html {
-        background: black;
+    body.path-login {
+        html {
+            background: black;
+        }
     }
+
 }
