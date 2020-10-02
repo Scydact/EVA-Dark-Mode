@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.3.11
+@version        2.3.12
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -363,7 +363,7 @@
     @borderRadius  : 10px;
     @borderRadiusUi: 5px;
     @shadow        : 0px 0px 12px rgba(0, 0, 0, 0.4);
-    @shadowCard    : 0px 0px 8px rgba(0, 0, 0, 0.1);
+    @shadowCard    : 0px 0px 8px rgba(0, 0, 0, 0.07);
 
 
     /* General MIXINS */
@@ -536,7 +536,7 @@
         border-radius   : @borderRadius;
         border          : @cardBorder;
         // color: @text1; Inherited (maybe)
-        //box-shadow    : var(--shadowcard)
+        box-shadow      : @shadowCard;
         // MIXIN
     }
 
@@ -851,7 +851,7 @@
         a,
         a:link,
         a:visited {
-            color: @link  !important;
+            color: inherit;
         }
 
         background: linear-gradient(0deg, rgba(0, 0, 0, 40%) 10%, rgba(0, 0, 0, 0%)) !important;
@@ -2076,6 +2076,10 @@
             &.highlight {
                 background-image: none;
                 background-color: @accent  !important;
+
+                .icon {
+                    color: white;
+                }
             }
 
         }
@@ -2583,7 +2587,8 @@
 
                 td,
                 th {
-                    border          : 2px dotted rgba(@fAlpha, 10%);
+                    //border          : 2px dotted rgba(@fAlpha, 10%);
+                    border          : none;
                     background-color: @back3;
                     padding         : 5px;
                 }
@@ -2600,6 +2605,14 @@
                     }
                 }
 
+                td:not(:last-child) {
+                    border-right: 2px dotted rgba(@fAlpha, 10%);
+                }
+
+                tr:not(:last-child) td {
+                    border-bottom: 2px dotted rgba(@fAlpha, 10%);
+                }
+
                 tr:last-child {
                     td:first-child {
                         border-bottom-left-radius: @borderRadius;
@@ -2614,7 +2627,8 @@
                     background-color: @back4;
                 }
 
-                .today {
+                tr td.today {
+                    // very specific, to avoid using !important
                     border: 2px solid @text1;
                 }
 
