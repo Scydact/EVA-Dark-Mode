@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.3.14
+@version        2.3.15
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -2168,6 +2168,72 @@
         background: @accentB2;
         border    : 1px solid @borderL;
         border-top: none;
+    }
+
+
+    /** HTML EDITOR (Code mirror) **/
+    .CodeMirror {
+        color      : @text1;
+        background : @back3;
+        font-family: 'Fira Code', Monaco, Menlo, Consolas, 'Droid Sans mono', Inconsolata, 'Courier new', monospace;
+        border     : 1px solid @border;
+    }
+
+    .CodeMirror-gutters {
+        background-color: @back2;
+        border-right    : 1px solid @borderL;
+    }
+
+    .CodeMirror-linenumber {
+        color: @text4;
+    }
+
+    .CodeMirror-selected {
+        background: @back1;
+    }
+
+    .CodeMirror-focused .CodeMirror-selected {
+        background: @blueB2;
+    }
+
+    .CodeMirror-cursor {
+        border-left : 1px solid @text1;
+        border-right: 0;
+        width       : 0
+    }
+
+    .cm-s-default {
+        .cm-tag {
+            color: #f06292;
+        }
+
+        .cm-bracket {
+            color: @blue;
+        }
+
+        .cm-attribute {
+            color     : @purpleF1;
+            font-style: italic;
+        }
+
+        .cm-string {
+            color: @greenF1;
+        }
+
+        .cm-atom {
+            color     : @text4;
+            font-style: italic;
+        }
+
+        .cm-comment {
+            color     : @blueB1;
+            font-style: italic;
+        }
+
+        .cm-error {
+            color     : @text1;
+            background: @red;
+        }
     }
 
 
