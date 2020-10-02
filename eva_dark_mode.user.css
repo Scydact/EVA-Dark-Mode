@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.3.12
+@version        2.3.13
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -959,8 +959,8 @@
     }
 
     pre {
-        // TODO: Verify usage and move to another section
-        color: red; // @text1;
+        // Literally used on <code> or <pre-formatted text> option in text editor.
+        color: inherit;
     }
 
 
@@ -2083,7 +2083,65 @@
             }
 
         }
+    }
 
+    .atto_menu[style="min-width:12em;"] {
+        // Text style dropdown
+        min-width: 20em !important;
+
+        ul.dropdown-menu li {
+            display: flex;
+            width  : 100%;
+
+            a {
+                display        : block;
+                width          : 100%;
+                color          : @text1;
+                text-decoration: none;
+            }
+
+            &:hover {
+                background: rgba(@fAlpha, 0.1);
+            }
+
+            &:nth-child(1),
+            &:nth-child(2),
+            &:nth-child(2) {
+                font-family: "CustomFont Headings", sans-serif !important;
+            }
+
+            &:nth-child(1) {
+                font-size: 1.640625rem;
+            }
+
+            &:nth-child(2) {
+                font-size: 1.40625rem;
+            }
+
+            &:nth-child(3) {
+                font-size: 1.171875rem;
+            }
+
+            &:nth-child(4) {
+                font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            }
+        }
+    }
+
+    .atto_menu[style="min-width:2em;"].open .dropdown-menu {
+        padding-top   : 0;
+        padding-bottom: 0;
+        overflow      : hidden;
+
+        li>a {
+            margin: 0;
+
+            &>div {
+                border: none !important;
+                width : 2rem !important;
+                height: 2rem !important;
+            }
+        }
     }
 
     .editor_atto_content_wrap {
