@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.3.13
+@version        2.3.14
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -551,6 +551,8 @@
         .card-body:only-child {
             // Usage: Calendar page > Events (although later overwritten)
             .Card();
+            box-shadow      : none;
+            border          : none;
             background-color: @back3;
         }
     }
@@ -2438,7 +2440,20 @@
         }
 
         #region-main .card-body.course-info-container {
-            background-color: transparent;
+            background-color          : @back4;
+            border-bottom-left-radius : @borderRadius;
+            border-bottom-right-radius: @borderRadius;
+        }
+
+        #region-main,
+        .card.border-0.bg-transparent {
+            box-shadow: none;
+        }
+
+        #region-main .card-body:only-child {
+            // this is a double .card-boy .card-body, has double shadow & border.
+            border    : none;
+            box-shadow: none;
         }
     }
 
@@ -2663,12 +2678,12 @@
                     }
                 }
 
-                td:not(:last-child) {
-                    border-right: 2px dotted rgba(@fAlpha, 10%);
+                td~td {
+                    border-left: 2px dotted rgba(@fAlpha, 10%);
                 }
 
-                tr:not(:last-child) td {
-                    border-bottom: 2px dotted rgba(@fAlpha, 10%);
+                tr~tr td {
+                    border-top: 2px dotted rgba(@fAlpha, 10%);
                 }
 
                 tr:last-child {
@@ -2685,8 +2700,7 @@
                     background-color: @back4;
                 }
 
-                tr td.today {
-                    // very specific, to avoid using !important
+                .today {
                     border: 2px solid @text1;
                 }
 
@@ -2727,6 +2741,7 @@
             border-bottom-right-radius: 0;
             padding-top               : 2.2rem;
             padding-bottom            : 0;
+            box-shadow                : none;
         }
 
         #region-main .event .card.rounded {
