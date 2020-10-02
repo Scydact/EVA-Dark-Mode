@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.3.10
+@version        2.3.11
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -2853,6 +2853,11 @@
     /** FORCES PARA CORRECION DE TAREAS (PROFS) **/
     #page-mod-assign-grader {
         background: @back3;
+    }
+
+    .region_main_settings_menu_proxy {
+        // on assistance thing, the dropdown has #fff background
+        background: transparent;
     }
 
     //########################################################
