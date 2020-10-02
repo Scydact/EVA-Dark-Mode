@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.3.15
+@version        2.3.16
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -1178,7 +1178,7 @@
 
     .popover-region-container {
         // Whole notification box
-        background-color: @back1;
+        background-color: @back2;
         border          : 1px solid @border;
         box-shadow      : @shadow;
         border-radius   : @borderRadius;
@@ -1202,7 +1202,7 @@
     .popover-region-footer-container {
         /* Footer 'Verlo todo'*/
         .ColorButton(@back3);
-        border                 : 1px solid @borderL;
+        border                 : 1px solid @border;
         border-top-color       : transparent;
         border-bottom          : 1px solid @border;
         border-radius          : @borderRadius;
@@ -1210,6 +1210,13 @@
         border-top-right-radius: 0px;
         color                  : @text3;
         font-family            : "CustomFont Headings", sans-serif;
+
+        width      : calc(100% + 2px);
+        margin-left: -1px;
+    }
+
+    .popover-region-content-container {
+        height: calc(100% - 64px);
     }
 
     .content-item-container {
@@ -1220,7 +1227,7 @@
 
         &:hover {
             color           : @text2;
-            background-color: @back2;
+            background-color: @back3;
 
             .content-item-footer .timestamp {
                 color: @text4;
@@ -1268,6 +1275,14 @@
 
         border    : none;
         background: @back3;
+
+        .content-item-container:hover {
+            background: @back4;
+        }
+
+        .content-item-container.selected:hover {
+            background: @accent;
+        }
 
         .control-area {
             border-right-color: @border;
