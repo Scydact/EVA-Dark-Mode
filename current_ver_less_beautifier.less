@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.3.17
+@version        2.3.18
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -694,7 +694,6 @@
 
 
     /** Inside a course **/
-    // TODO: Move to its own moz-document
     .course-content {
 
         // Fix for ugly empty courses
@@ -2971,6 +2970,7 @@
             //margin       : 2px;
         }
 
+        // Auto added subtitle to some images and pdf's
         .resourcelinkdetails {
             color: @text4;
         }
@@ -3014,6 +3014,14 @@
         }
 
         .fixEnforcedTemplate(@try_fix_unapec_template);
+
+        .fixDarkModeAssets(@tryFix) when (@tryFix =dark) {
+            img[src^="https://wikimedia.org/api/rest_v1/media/math/render/svg/"] {
+                filter: invert(1);
+            }
+        }
+
+        .fixDarkModeAssets(@theme);
 
     }
 
