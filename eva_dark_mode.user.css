@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.3.18
+@version        2.4.0
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -36,6 +36,8 @@
     'Custom ': 'custom'
 }
 @var color link_color 'Color personalizado de links' #1976d2
+
+@var checkbox toggle_small_navbar 'Barra de navegación compacta' 0
 
 @var checkbox try_fix_unapec_template 'Intentar arreglar los titulos de la plantilla forzada por la administracion del EVA ' 1
 
@@ -3057,5 +3059,100 @@
             background: black;
         }
     }
+
+    //########################################################
+
+    /** Compact toolbar toggle */
+    .toggleSmallNavbar(@val) when (@val =1) {
+
+        html,
+        body {
+            height: auto;
+        }
+
+        .fixed-top.navbar.menu-top {
+            // display: none;
+            position: relative !important;
+
+            >div {
+                padding  : .1em !important;
+                font-size: small;
+                width    : 100vw !important;
+            }
+
+            ;
+
+            a.nav-link {
+                padding: .15em .7em;
+            }
+        }
+
+        .fixed-top.navbar.navbar-expand:not(.menu-top) {
+            top          : 0 !important;
+            left         : 0;
+            padding      : 0;
+            padding-right: 1em;
+            position     : sticky;
+            border-top   : none;
+
+            display    : flex;
+            align-items: center;
+
+            .nav-link {
+                padding: 0 1em;
+            }
+
+            .nav-item {
+                display    : flex;
+                align-items: stretch;
+            }
+
+            .nav-item .nav-link .icon {
+                font-size  : small;
+                line-height: 2em;
+            }
+
+            .userpicture {
+                border-radius: 50%;
+                height       : 1.8em;
+                padding      : .2em .5em;
+            }
+
+            .d-md-inline img {
+                display: none;
+            }
+
+            .usertext {
+                margin-left: .5rem;
+                font-size  : small;
+            }
+        }
+
+        #page {
+            margin-top: 0;
+        }
+
+        div#nav-drawer {
+            top        : 0;
+            margin-top : 0;
+            padding-top: 4em;
+        }
+
+        [data-region="drawer"] {
+            height: 100%;
+        }
+
+        [data-region=right-hand-drawer].drawer {
+            top        : 0;
+            margin-top : 0;
+            padding-top: 3em;
+        }
+
+        header#page-header {
+            margin-top: 0;
+        }
+    }
+
+    .toggleSmallNavbar(@toggle_small_navbar);
 
 }
