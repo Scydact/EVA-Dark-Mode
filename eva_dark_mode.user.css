@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.4.0
+@version        2.4.1
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -3098,6 +3098,10 @@
             display    : flex;
             align-items: center;
 
+            button.btn.nav-link {
+                padding: 0 0 0 1em;
+            }
+
             .nav-link {
                 padding: 0 1em;
             }
@@ -3119,7 +3123,7 @@
             }
 
             .d-md-inline img {
-                display: none;
+                height: 1em;
             }
 
             .usertext {
