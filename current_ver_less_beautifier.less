@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.4.1
+@version        2.5.0
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -48,6 +48,12 @@
     @font-face {
         font-family: "CustomFont Headings";
         src        : url("https://scyllarusdactyl.github.io/EVA-Dark-Mode/fonts/NotoSans-Regular.ttf");
+    }
+
+    @font-face {
+        font-family: "CustomFont Headings";
+        src        : url("https://scyllarusdactyl.github.io/EVA-Dark-Mode/fonts/NotoSans-Bold.ttf");
+        font-weight: bold;
     }
 
     @font-face {
@@ -977,6 +983,11 @@
     .custom-select,
     .form-control {
         .GenericInput();
+    }
+
+    option {
+        background: @back3;
+        color     : @text1;
     }
 
     .form-control:disabled,
@@ -2273,6 +2284,10 @@
             text-shadow    : 0px 0px 7px rgba(0, 0, 0, 0.5);
         }
 
+        .new {
+            font-weight: normal !important;
+        }
+
     }
 
     .coursebox>.info {
@@ -2961,7 +2976,7 @@
 
     //########################################################
 
-    /** FORCES EN CURSOS**/
+    /** FORCES EN CURSOS **/
     #page-course-view-weeks {
 
         // Transparent images inside a course (+ rounded borders)
@@ -3025,6 +3040,37 @@
 
         .fixDarkModeAssets(@theme);
 
+    }
+
+    //########################################################
+
+    /** FIXES Y FORCES EN FOROS **/
+    #page-mod-forum-discuss {
+        .forumpost {
+            border       : none !important;
+            border-bottom: 4px dashed @border  !important;
+            padding      : 2rem 0 !important;
+            margin-left  : 2rem !important;
+        }
+
+        :target>.forumpost:before {
+            // similar to .course-content .current::before
+            width     : 5px;
+            left      : -2rem;
+            background: @accent
+        }
+
+        .post-actions .btn-link {
+            .btn-secondary();
+            margin-left    : .5rem;
+            text-decoration: none;
+        }
+
+        address {
+            color      : rgba(@fAlpha, 0.6);
+            font-family: "CustomFont Condensed", "CustomFont Headings", "CustomFont Regular", sans-serif;
+
+        }
     }
 
     //########################################################
