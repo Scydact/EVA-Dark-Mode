@@ -3045,7 +3045,7 @@
     //########################################################
 
     /** FIXES Y FORCES EN FOROS **/
-    #page-mod-forum-discuss {
+    .path-mod-forum {
         .forumpost {
             border       : none !important;
             border-bottom: 4px dashed @border  !important;
