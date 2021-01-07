@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.5.5
+@version        2.5.6
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -2751,6 +2751,17 @@
         .curva-vert {
             display: none;
         }
+
+        // Confirm dialog gets bugged here
+        .yui3-skin-sam .yui3-widget-mask,
+        .modal.show,
+        [data-region="confirm-dialogue-container"] {
+            background-color: transparent;
+
+            #modal-content {
+                box-shadow: @shadow;
+            }
+        }
     }
 
 
@@ -2885,6 +2896,12 @@
         color: @text2;
     }
 
+    /* Something something */
+    // https://eva.unapec.edu.do/moodle/admin/tool/dataprivacy/summary.php
+    div[role="main"]>div>.card {
+        background: @back3;
+    }
+
     //########################################################
 
     /** ENLACES Y SERVICIOS **/
@@ -2972,13 +2989,16 @@
             }
         }
 
-
-        #page {
-            margin-top: 0;
-        }
-
         header#page-header {
             display: none;
+        }
+
+        #page-wrapper {
+            padding-top: 0;
+        }
+
+        #page {
+            margin-top: 7em;
         }
     }
 
@@ -3148,9 +3168,17 @@
             min-height: 100vh;
         }
 
+        #page {
+            transition: padding-left .3s ease;
+        }
+
         @media (min-width: 768px) {
             body.drawer-open-left {
                 margin-left: 0;
+
+                #page {
+                    padding-left: 300px; // 285+15
+                }
             }
         }
 
