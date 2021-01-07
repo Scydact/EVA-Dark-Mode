@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.5.4
+@version        2.5.5
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -3143,8 +3143,15 @@
             height: auto;
         }
 
+        // On small pages, like https://eva.unapec.edu.do/moodle/admin/tool/lp/plans.php
         #page-wrapper {
             min-height: 100vh;
+        }
+
+        @media (min-width: 768px) {
+            body.drawer-open-left {
+                margin-left: 0;
+            }
         }
 
         .fixed-top.navbar.menu-top {
@@ -3154,7 +3161,6 @@
             >div {
                 padding  : .1em !important;
                 font-size: small;
-                width    : 100vw !important;
             }
 
             a.nav-link {
@@ -3214,8 +3220,10 @@
         div#nav-drawer {
             top        : 0;
             margin-top : 0;
-            padding-top: 4em;
+            padding-top: 4.5em;
+            transition : left .3s ease;
         }
+
 
         [data-region="drawer"] {
             height: 100%;
