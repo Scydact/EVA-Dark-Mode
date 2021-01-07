@@ -3,7 +3,7 @@
 @namespace      https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @homepageURL    https://github.com/ScyllarusDactyl/EVA-Dark-Mode
 @updateURL      https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
-@version        2.5.3
+@version        2.5.4
 @license        LGPL-3.0-or-later
 @description    Modo oscuro para eva.unapec.edu.do
 @author         ScyllarusDactyl
@@ -40,6 +40,8 @@
 @var checkbox toggle_small_navbar 'Barra de navegación compacta' 0
 
 @var checkbox try_fix_unapec_template 'Intentar arreglar los titulos de la plantilla forzada por la administracion del EVA ' 1
+
+@var checkbox try_fix_color_headings 'Intentar arreglar los colores de bajo contraste a texto' 1
 
 
 ==/UserStyle== */
@@ -481,7 +483,8 @@
 
     /** MAIN BODY **/
     body {
-        font-family: "CustomFont Regular", sans-serif;
+        font-family : "CustomFont Regular", sans-serif;
+        font-display: swap;
     }
 
     h1,
@@ -3045,6 +3048,25 @@
 
         .fixDarkModeAssets(@theme);
 
+        .fixLowContrastText(@tryFix) when (@tryFix =1) {
+            span {
+
+                &[style^="color: rgb(0, 0, 255);"],
+                &[style*=" color: rgb(0, 0, 255);"] {
+                    color: @blue  !important;
+                }
+
+                &[style="color: #000080;"] {
+                    color: @indigo  !important;
+                }
+
+                &[style="color: #ff0000;"] {
+                    color: @red  !important;
+                }
+            }
+        }
+
+        .fixLowContrastText(@try_fix_color_headings)
     }
 
     //########################################################
