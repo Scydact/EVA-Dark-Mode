@@ -2,6 +2,9 @@
 
 [Ver página oficial](https://scyllarusdactyl.github.io/EVA-Dark-Mode/)
 
+## Nota
+Como UNAPEC cambió su plataforma LMS de Moodle a Canvas, este Dark Mode ya no será actualizado.
+Se mantiene el repositorio en caso de que se quiera portar a otra version de moodle.
 
 ## Como instalar:
 
