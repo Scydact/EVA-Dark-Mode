@@ -1,6 +1,6 @@
 # EVA Dark Mode™
 
-[Ver página oficial](https://scyllarusdactyl.github.io/EVA-Dark-Mode/)
+[Ver página oficial](https://scydact.github.io/EVA-Dark-Mode/)
 
 ## Nota
 Como UNAPEC cambió su plataforma LMS de Moodle a Canvas, este Dark Mode ya no será actualizado.
@@ -15,27 +15,27 @@ Se mantiene el repositorio en caso de que se quiera portar a otra version de moo
 2. Instalar [el estilo][1]  
     [![Boton descarga estilo](https://img.shields.io/badge/Descargar-EVA%20Dark%20Mode-informational)][1]
 
-[1]: https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/eva_dark_mode.user.css
+[1]: https://raw.githubusercontent.com/Scydact/EVA-Dark-Mode/master/eva_dark_mode.user.css
 
 
 ## Ejemplos
 
 ### Login
-![Preview login](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/docs/img/login_demo.png)
+![Preview login](https://raw.githubusercontent.com/Scydact/EVA-Dark-Mode/master/docs/img/login_demo.png)
 
 ### Modo oscuro (default)
-![Preview Dark mode](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/docs/img/dark_demo.png)
+![Preview Dark mode](https://raw.githubusercontent.com/Scydact/EVA-Dark-Mode/master/docs/img/dark_demo.png)
 
 ### Entrega asignación
-![Preview tarea](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/docs/img/tarea_demo.png)
+![Preview tarea](https://raw.githubusercontent.com/Scydact/EVA-Dark-Mode/master/docs/img/tarea_demo.png)
 
 ### Otros subtemas (en prueba)
 #### Light
-![Preview Light mode](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/docs/img/light_demo.png)
+![Preview Light mode](https://raw.githubusercontent.com/Scydact/EVA-Dark-Mode/master/docs/img/light_demo.png)
 
 #### White
-![Preview White mode](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/docs/img/white_demo.png)
+![Preview White mode](https://raw.githubusercontent.com/Scydact/EVA-Dark-Mode/master/docs/img/white_demo.png)
 
 #### AMOLED
-![Preview AMOLED mode](https://raw.githubusercontent.com/ScyllarusDactyl/EVA-Dark-Mode/master/docs/img/amoled_demo.png)
+![Preview AMOLED mode](https://raw.githubusercontent.com/Scydact/EVA-Dark-Mode/master/docs/img/amoled_demo.png)
 
